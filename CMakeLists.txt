@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.24)
 project(ProjetTowerDefense)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -13,10 +13,14 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(ProjetTowerDefense main.cpp)
+add_executable(ProjetTowerDefense main.cpp
+        src/MainWindow.cpp
+        src/MyScene.cpp
+        src/MyView.cpp
+        src/MyView.h)
 target_link_libraries(ProjetTowerDefense
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
 )
 
