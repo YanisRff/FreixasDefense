@@ -17,7 +17,12 @@ add_executable(ProjetTowerDefense main.cpp
         src/MainWindow.cpp
         src/MyScene.cpp
         src/MyView.cpp
-        src/MyView.h)
+        src/MyView.h
+        src/Enemy.cpp
+        src/Enemy.h
+        src/Towers.cpp
+        src/Towers.h
+)
 target_link_libraries(ProjetTowerDefense
         Qt6::Core
         Qt6::Gui

@@ -8,8 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     int pbHeight = pixBackground->height();
 
     //Create the scene and draw the image
-    this->mainScene = new MyScene();
-    mainScene->setPixBackground(pixBackground);
+    this->mainScene = new MyScene(nullptr, pixBackground);
     mainScene->drawBackground(new QPainter(), QRectF());
     mainScene->setSceneRect(0, 0, pbWidth, pbHeight); //make the scene the exact same size as the window
 
