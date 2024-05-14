@@ -27,3 +27,8 @@ Enemy::Enemy(QPixmap bI) : backgroundImage(std::move(bI)){
     setPixmap(backgroundImage);
 }
 
+MyScene *Enemy::getScene() const {
+    QGraphicsScene* tempScene =  this->scene();
+    return dynamic_cast<MyScene*>(tempScene);
+}
+

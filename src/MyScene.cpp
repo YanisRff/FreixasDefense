@@ -8,16 +8,20 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     timer->start(30); ///30 milliseconds
 
     enemies = new QVector<Enemy*>();
-    towers = new QVector<Towers*>();
-
-    //create an enemy
-    QPixmap bqtpm("../assets/st.png");
-    Enemy* qtpm = new Enemy(bqtpm);
-    addEnemy(qtpm);
+    towers = new QVector<Tower*>();
 
     createPathToScene();
     createPathPointsToScene();
 
+    //create an enemy
+    QPixmap enemy_bg("../assets/hqdefault.jpg");
+    Enemy* enemy = new Enemy(enemy_bg);
+    addEnemy(enemy);
+
+    QPixmap tower_bg("../assets/tower_image.jpg");
+    Tower* tower = new Tower(tower_bg);
+    addTower(tower);
+    tower->setPos(QPointF(400, 400));
 }
 
 MyScene::~MyScene() {
@@ -53,7 +57,6 @@ void MyScene::createPathToScene() {
     // Point A et point B
     QPointF pointA(0, pixBackground->height()/2);
     QPointF pointB(pixBackground->width(), pixBackground->height()/2);
-
     // Point de contrôle pour la courbe quadratique (quelque part entre A et B)
     QPointF controlPointOne(pixBackground->width()/3, pixBackground->height()/3 +  QRandomGenerator::global()->bounded(100, pixBackground->height()/2));
     QPointF controlPointTwo(2*pixBackground->width()/3, pixBackground->height()/4 +  QRandomGenerator::global()->bounded(100, pixBackground->height()/2));
@@ -81,11 +84,6 @@ void MyScene::createPathPointsToScene() {
         QPointF point = pathItem->path().pointAtPercent(t);
         pathPoints->push_back(point);
     }
-
-    // Afficher les points échantillonnés
-    for (const auto& point : *pathPoints) {
-        qDebug() << point;
-    }
 }
 
 void MyScene::moveEnemies() {
@@ -98,3 +96,15 @@ void MyScene::addEnemy(Enemy *e) {
     enemies->push_back(e);
     addItem(e);
 }
+
+void MyScene::addTower(Tower *t) {
+    towers->push_back(t);
+    addItem(t);
+}
+
+QVector<Enemy *> *MyScene::getEnnemies() const {
+    return enemies;
+}
+
+
+

@@ -7,6 +7,8 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QSharedPointer>
+#include "MyScene.h"
+class MyScene;
 
 class Enemy : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
@@ -24,6 +26,9 @@ public:
 
     void incrementPos();
     [[nodiscard]] int getPosInPath() const;
+    [[nodiscard]] MyScene* getScene() const;
+
 };
+
 
 #endif //PROJETTOWERDEFENSE_ENEMY_H
