@@ -7,21 +7,28 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     connect(timer, &QTimer::timeout, this, &MyScene::update);
     timer->start(30); ///30 milliseconds
 
-    enemies = new QVector<Enemy*>();
-    towers = new QVector<Tower*>();
+    enemies = new QVector<Enemy*>(1000);
+    towers = new QVector<Tower*>(1000);
 
     createPathToScene();
     createPathPointsToScene();
 
     //create an enemy
     QPixmap enemy_bg("../assets/hqdefault.jpg");
-    Enemy* enemy = new Enemy(enemy_bg);
-    addEnemy(enemy);
+    Enemy* enemyOne = new Enemy(enemy_bg, 100, 10, 3, 1);
+    Enemy* enemyTwo = new Enemy(enemy_bg, 100, 10, 3, 1);
+    Enemy* enemyThree = new Enemy(enemy_bg, 100, 10, 2, 1);
+    Enemy* enemyFour = new Enemy(enemy_bg, 100, 10, 1, 1);
+
+    addEnemy(enemyOne);
+    addEnemy(enemyTwo);
+    addEnemy(enemyThree);
+    addEnemy(enemyFour);
 
     QPixmap tower_bg("../assets/tower_image.jpg");
-    Tower* tower = new Tower(tower_bg);
+    Tower* tower = new Tower(500, 1000, 3, 10, tower_bg);
     addTower(tower);
-    tower->setPos(QPointF(400, 400));
+    tower->setPos(QPointF(300, 600));
 }
 
 MyScene::~MyScene() {
@@ -77,7 +84,7 @@ void MyScene::createPathPointsToScene() {
     // Vecteur pour stocker les points du chemin
     pathPoints = QSharedPointer<QVector<QPointF>>(new QVector<QPointF>);
     // Échantillonner le chemin
-    const int numSamples = pixBackground->width()/2;  // Nombre de points à échantillonner
+    const int numSamples = pixBackground->width();  // Nombre de points à échantillonner
     for (int i = 0; i <= numSamples; i++) {
         // Calculer la position le long du chemin
         qreal t = static_cast<qreal>(i) / numSamples;

@@ -4,17 +4,13 @@
 
 #include "Tower.h"
 
-Tower::Tower(QPixmap bI) : backgroundImage(bI){
+Tower::Tower(int aR, int uR, int nT, float dmg,  QPixmap bI) : backgroundImage(bI), attackRadius(aR), updateRate(uR), numberOfTargets(nT) {
     setPixmap(backgroundImage);
-    rangeItem = new QGraphicsEllipseItem(0, 0, rangeDiameter, rangeDiameter, this);
-}
+    attackTimer =  new QTimer();
+    attackTimer->start(updateRate);
+    rangeItem = new QGraphicsEllipseItem(-attackRadius/2 + this->pixmap().width()/2,  -attackRadius/2 +this->pixmap().height()/2, attackRadius, attackRadius, this);
+    connect(attackTimer, &QTimer::timeout, this, &Tower::checkEnnemiesInRange);
 
-Tower::Tower(int rD, int uR, int nT) : rangeDiameter(rD), updateRate(uR), numberOfTargets(nT) {
-    QTimer* timer = new QTimer();
-    timer->start(updateRate);
-    connect(timer, &QTimer::timeout, this, &Tower::checkEnnemiesInRange);
-    rangeItem = new QGraphicsEllipseItem(0, 0, rangeDiameter, rangeDiameter, this); //child of visible QGraphicsItem are also shown in scene. So this range is visible.
-    rangeItem->setPos(this->pos().rx() - this->boundingRect().width()/2, this->pos().ry() - this->boundingRect().height()/2);
 }
 
 MyScene* Tower::getScene() const {
@@ -23,7 +19,8 @@ MyScene* Tower::getScene() const {
 }
 
 void Tower::attackEnemy(Enemy* e) {
-
+    e->setHealth(e->getHealth() - damages);
+    std::cout << "New health of " << e << ": " << e->getHealth() << std::endl;
 }
 
 void Tower::checkEnnemiesInRange() {
@@ -33,11 +30,11 @@ void Tower::checkEnnemiesInRange() {
         if(targetedEnnemies == numberOfTargets){
             return;
         }
-
-        if(rangeItem->contains(enemy->pos())){
+        if(rangeItem->contains(mapFromScene(enemy->sceneBoundingRect().center())) && enemy->getHealth() > 0){ //check if enemy is in range. Moreover, as ennemies will not be removed from the QVector ennemies but on ly hidden, it checks if the enemy is still alive<=>visible before attacking it
             attackEnemy(enemy);
             targetedEnnemies += 1;
         }
     }
 }
+
 

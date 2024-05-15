@@ -22,11 +22,15 @@ private:
 public:
     explicit Enemy(QPixmap bI);
     Enemy(QPixmap bI, float hp, float dmg, float spd, int gD);
-    void moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints);
 
+    void moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints);
     void incrementPos();
+
     [[nodiscard]] int getPosInPath() const;
     [[nodiscard]] MyScene* getScene() const;
+    [[nodiscard]] float getHealth() const;
+
+    void setHealth(float hp);
 
 };
 

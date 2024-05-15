@@ -15,17 +15,20 @@ class MyScene;
 class Tower: public QObject, public QGraphicsPixmapItem {
 private:
     QPixmap backgroundImage;
-    int rangeDiameter = 1000;
+    QTimer* attackTimer = nullptr;
+    int attackRadius = 500;
     int updateRate = 1000; //in ms
     int numberOfTargets = 1;
     QGraphicsEllipseItem* rangeItem = nullptr;
+
+    float damages = 10;
 public:
-    explicit Tower(QPixmap bI);
-    Tower(int rD, int uR, int nT);
+    Tower(int aR, int uR, int nT, float dmg, QPixmap bI);
     void attackEnemy(Enemy* e);
     void checkEnnemiesInRange();
     [[nodiscard]] MyScene* getScene() const;
 };
+
 
 
 
