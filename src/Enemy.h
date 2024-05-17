@@ -7,6 +7,8 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QSharedPointer>
+#include "MyScene.h"
+class MyScene;
 
 class Enemy : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
@@ -14,16 +16,24 @@ private:
     QPixmap backgroundImage;
     float health = 80;
     float damages = 10;
-    float speed = 1;
+    int speed = 1;
     int goldDropped = 10;
     int posInPath = 0;
 public:
     explicit Enemy(QPixmap bI);
     Enemy(QPixmap bI, float hp, float dmg, float spd, int gD);
-    void moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints);
 
+    void moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints);
     void incrementPos();
+
     [[nodiscard]] int getPosInPath() const;
+    [[nodiscard]] MyScene* getScene() const;
+    [[nodiscard]] float getHealth() const;
+    [[nodiscard]] float getDamages() const;
+
+    void setHealth(float hp);
+
 };
+
 
 #endif //PROJETTOWERDEFENSE_ENEMY_H

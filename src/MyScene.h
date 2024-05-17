@@ -11,8 +11,9 @@
 #include <QGraphicsItemAnimation>
 #include <QRandomGenerator>
 #include "Enemy.h"
-#include "Towers.h"
-
+#include "Tower.h"
+class Enemy;
+class Tower;
 
 
 class MyScene : public QGraphicsScene {
@@ -21,24 +22,27 @@ private:
     QTimer* timer = nullptr;
     QPixmap* pixBackground = nullptr;
     QVector<Enemy*> *enemies = nullptr;
-    QVector<Towers*> *towers = nullptr;
+    QVector<Tower*> *towers = nullptr;
     QGraphicsPathItem* pathItem = nullptr;
     QSharedPointer<QVector<QPointF>> pathPoints = nullptr;
+
+
 
 public:
     explicit MyScene(QObject* parent = nullptr, QPixmap* pixBackground = nullptr);
     void drawBackground(QPainter* painter, const QRectF &rect) override;
 
     [[nodiscard]] QPixmap* getPixBackground() const;
+    [[nodiscard]] QVector<Enemy*>* getEnnemies() const;
     void setPixBackground(QPixmap* pB);
 
     void update();
     void moveEnemies();
     void addEnemy(Enemy* e);
+    void addTower(Tower* t);
     void createPathToScene();
     void createPathPointsToScene();
     virtual ~MyScene();
-
 };
 
 

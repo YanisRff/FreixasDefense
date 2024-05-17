@@ -13,10 +13,6 @@ void Enemy::incrementPos() {
     posInPath += 1*speed;
 }
 
-int Enemy::getPosInPath() const {
-    return posInPath;
-}
-
 void Enemy::moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints) {
     QPointF newPos = pathPoints->data()[this->getPosInPath()]; // data() get the raw pointer encapsulated to the QVector
     this->setPos(newPos.rx() +  - this->boundingRect().width()/2, newPos.ry() - this->boundingRect().height()/2); //correct the translation center from the top left corner to the center of the image
@@ -26,4 +22,25 @@ void Enemy::moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints) {
 Enemy::Enemy(QPixmap bI) : backgroundImage(std::move(bI)){
     setPixmap(backgroundImage);
 }
+
+///All the getters
+MyScene *Enemy::getScene() const {
+    QGraphicsScene* tempScene =  this->scene();
+    return dynamic_cast<MyScene*>(tempScene);
+}
+int Enemy::getPosInPath() const {
+    return posInPath;
+}
+float Enemy::getHealth() const {
+    return health;
+}
+float Enemy::getDamages() const {
+    return damages;
+}
+
+//All the setters
+void Enemy::setHealth(float hp) {
+    health = hp;
+}
+
 
