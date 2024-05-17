@@ -7,3 +7,10 @@
 void MyView::resizeEvent(QResizeEvent *event) {
     this->fitInView(sceneRect());
 }
+
+void MyView::keyPressEvent(QKeyEvent *event) {
+    switch(event->key()){
+        case Qt::Key_X:
+            return;
+    }
+}

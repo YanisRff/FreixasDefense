@@ -4,7 +4,7 @@
 
 #include "Tower.h"
 
-Tower::Tower(int aR, int uR, int nT, float dmg,  QPixmap bI) : backgroundImage(bI), attackRadius(aR), updateRate(uR), numberOfTargets(nT) {
+Tower::Tower(int aR, int uR, int nT, float dmg,  QPixmap bI) : backgroundImage(bI), attackRadius(aR), updateRate(uR), numberOfTargets(nT), damages(dmg) {
     setPixmap(backgroundImage);
     attackTimer =  new QTimer();
     attackTimer->start(updateRate);
@@ -27,12 +27,11 @@ void Tower::checkEnnemiesInRange() {
     QVector<Enemy*>* ennemies = this->getScene()->getEnnemies();
     int targetedEnnemies = 0;
     for(auto& enemy: *ennemies){
-        if(targetedEnnemies == numberOfTargets){
-            return;
-        }
-        if(rangeItem->contains(mapFromScene(enemy->sceneBoundingRect().center())) && enemy->getHealth() > 0){ //check if enemy is in range. Moreover, as ennemies will not be removed from the QVector ennemies but on ly hidden, it checks if the enemy is still alive<=>visible before attacking it
-            attackEnemy(enemy);
-            targetedEnnemies += 1;
+        if(enemy != nullptr &&  targetedEnnemies != numberOfTargets && enemy->getHealth() > 0){
+            if(rangeItem->contains(mapFromScene(enemy->sceneBoundingRect().center()))){ //check if enemy is in range. Moreover, as ennemies will not be removed from the QVector ennemies but on ly hidden, it checks if the enemy is still alive<=>visible before attacking it
+                attackEnemy(enemy);
+                targetedEnnemies += 1;
+            }
         }
     }
 }

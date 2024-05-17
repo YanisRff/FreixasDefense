@@ -26,6 +26,8 @@ private:
     QGraphicsPathItem* pathItem = nullptr;
     QSharedPointer<QVector<QPointF>> pathPoints = nullptr;
 
+
+
 public:
     explicit MyScene(QObject* parent = nullptr, QPixmap* pixBackground = nullptr);
     void drawBackground(QPainter* painter, const QRectF &rect) override;

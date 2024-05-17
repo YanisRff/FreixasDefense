@@ -22,7 +22,7 @@ add_executable(ProjetTowerDefense main.cpp
         src/Enemy.h
         src/Tower.cpp
         src/Tower.h
-)
+        src/Castle.cpp src/Castle.hpp src/GameWidget.cpp src/GameWidget.hpp)
 target_link_libraries(ProjetTowerDefense
         Qt6::Core
         Qt6::Gui

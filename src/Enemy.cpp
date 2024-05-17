@@ -34,6 +34,9 @@ int Enemy::getPosInPath() const {
 float Enemy::getHealth() const {
     return health;
 }
+float Enemy::getDamages() const {
+    return damages;
+}
 
 //All the setters
 void Enemy::setHealth(float hp) {

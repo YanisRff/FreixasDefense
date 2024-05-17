@@ -7,8 +7,8 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     connect(timer, &QTimer::timeout, this, &MyScene::update);
     timer->start(30); ///30 milliseconds
 
-    enemies = new QVector<Enemy*>(1000);
-    towers = new QVector<Tower*>(1000);
+    enemies = new QVector<Enemy*>(100);
+    towers = new QVector<Tower*>(100);
 
     createPathToScene();
     createPathPointsToScene();
@@ -26,9 +26,10 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     addEnemy(enemyFour);
 
     QPixmap tower_bg("../assets/tower_image.jpg");
-    Tower* tower = new Tower(500, 1000, 3, 10, tower_bg);
+    Tower* tower = new Tower(500, 1000, 3, 20, tower_bg);
     addTower(tower);
     tower->setPos(QPointF(300, 600));
+
 }
 
 MyScene::~MyScene() {
@@ -94,13 +95,15 @@ void MyScene::createPathPointsToScene() {
 }
 
 void MyScene::moveEnemies() {
-    for(auto & enemie : *enemies){
-        enemie->moveAlongPath(pathPoints);
+    for(auto & enemy : *enemies){
+        if(enemy != nullptr && enemy->getHealth() > 0){
+            enemy->moveAlongPath(pathPoints);
+        }
     }
 }
 
 void MyScene::addEnemy(Enemy *e) {
-    enemies->push_back(e);
+    enemies->append(e);
     addItem(e);
 }
 
