@@ -9,15 +9,26 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
     enemies = new QVector<Enemy*>(100);
     towers = new QVector<Tower*>(100);
+    castle = new Castle(QPixmap("../assets/castle.jpg"), *pixBackground, 1000, 10);
+    addItem(castle);
+
+
+    //connect signals and slots
+    //TODO
+
 
     createPathToScene();
     createPathPointsToScene();
 
     //create an enemy
     QPixmap enemy_bg("../assets/hqdefault.jpg");
-    Enemy* enemyOne = new Enemy(enemy_bg, 100, 10, 3, 1);
-    Enemy* enemyTwo = new Enemy(enemy_bg, 100, 10, 3, 1);
-    Enemy* enemyThree = new Enemy(enemy_bg, 100, 10, 2, 1);
+    Enemy* enemyOne = new Enemy(enemy_bg, 300, 100, 3, 1);
+    connect(enemyOne, &Enemy::enemyKilled, this, &MyScene::killEnemy);
+    connect(enemyOne, &Enemy::castleAttacked, castle, &Castle::isAttacked);
+    Enemy* enemyTwo = new Enemy(enemy_bg, 300, 10, 3, 1);
+    connect(enemyTwo, &Enemy::enemyKilled, this, &MyScene::killEnemy);
+    connect(enemyTwo, &Enemy::castleAttacked, castle, &Castle::isAttacked);
+    Enemy* enemyThree = new Enemy(enemy_bg, 300, 10, 2, 1);
     Enemy* enemyFour = new Enemy(enemy_bg, 100, 10, 1, 1);
 
     addEnemy(enemyOne);
@@ -66,8 +77,8 @@ void MyScene::createPathToScene() {
     QPointF pointA(0, pixBackground->height()/2);
     QPointF pointB(pixBackground->width(), pixBackground->height()/2);
     // Point de contrôle pour la courbe quadratique (quelque part entre A et B)
-    QPointF controlPointOne(pixBackground->width()/3, pixBackground->height()/3 +  QRandomGenerator::global()->bounded(100, pixBackground->height()/2));
-    QPointF controlPointTwo(2*pixBackground->width()/3, pixBackground->height()/4 +  QRandomGenerator::global()->bounded(100, pixBackground->height()/2));
+    QPointF controlPointOne(pixBackground->width()/3, pixBackground->height()/3 +  QRandomGenerator::global()->bounded(300, pixBackground->height()/2));
+    QPointF controlPointTwo(2*pixBackground->width()/3, pixBackground->height()/4 +  QRandomGenerator::global()->bounded(300, pixBackground->height()/2));
 
     // Créer un chemin quadratique
     QPen pen(Qt::red, 3, Qt::DashDotLine, Qt::RoundCap, Qt::RoundJoin);
@@ -108,12 +119,40 @@ void MyScene::addEnemy(Enemy *e) {
 }
 
 void MyScene::addTower(Tower *t) {
-    towers->push_back(t);
+    towers->append(t);
     addItem(t);
 }
 
 QVector<Enemy *> *MyScene::getEnnemies() const {
     return enemies;
+}
+
+//Slots
+void MyScene::killEnemy(Enemy *e) {
+    e->setHealth(0);
+    castle->setGold(castle->getGold() + e->getDroppedGold());
+    removeItem(e);
+}
+
+void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
+    switch (mouseEvent->button()) {
+        case Qt::RightButton:
+            showTowerMenu(mouseEvent->lastScenePos());
+            break;
+            //open tower menu selector
+        case Qt::LeftButton:
+            hideTowerMenu();
+            break;
+            //close tower menu selector
+    }
+}
+
+void MyScene::showTowerMenu(QPointF clickedPos) {
+    towerMenu->setPos(clickedPos);
+    towerMenu->show();
+}
+void MyScene::hideTowerMenu() {
+    towerMenu->hide();
 }
 
 

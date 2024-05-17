@@ -14,6 +14,10 @@ void Enemy::incrementPos() {
 }
 
 void Enemy::moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints) {
+    if(this->getPosInPath() == pathPoints->size() - 1){ //enemy touched the base
+        emit enemyKilled(this);
+        emit castleAttacked(this);
+    }
     QPointF newPos = pathPoints->data()[this->getPosInPath()]; // data() get the raw pointer encapsulated to the QVector
     this->setPos(newPos.rx() +  - this->boundingRect().width()/2, newPos.ry() - this->boundingRect().height()/2); //correct the translation center from the top left corner to the center of the image
     this->incrementPos();
@@ -37,10 +41,17 @@ float Enemy::getHealth() const {
 float Enemy::getDamages() const {
     return damages;
 }
+int Enemy::getDroppedGold() const {
+    return goldDropped;
+}
 
 //All the setters
 void Enemy::setHealth(float hp) {
     health = hp;
 }
+
+
+
+
 
 

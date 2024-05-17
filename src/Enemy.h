@@ -30,8 +30,13 @@ public:
     [[nodiscard]] MyScene* getScene() const;
     [[nodiscard]] float getHealth() const;
     [[nodiscard]] float getDamages() const;
-
+    [[nodiscard]] int getDroppedGold() const;
     void setHealth(float hp);
+
+public :signals:
+    void enemyKilled(Enemy* e);
+    void castleAttacked(const Enemy* e);
+
 
 };
 

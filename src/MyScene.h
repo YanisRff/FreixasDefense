@@ -10,23 +10,32 @@
 #include <QTimeLine>
 #include <QGraphicsItemAnimation>
 #include <QRandomGenerator>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsProxyWidget>
 #include "Enemy.h"
-#include "Tower.h"
+#include "Tower.h"  
+#include "Castle.h"
+#include "GameWidgets.h"
 class Enemy;
 class Tower;
+class Castle;
 
 
-class MyScene : public QGraphicsScene {
+class MyScene : public QGraphicsScene{
     Q_OBJECT
 private:
     QTimer* timer = nullptr;
     QPixmap* pixBackground = nullptr;
+
     QVector<Enemy*> *enemies = nullptr;
     QVector<Tower*> *towers = nullptr;
+    Castle* castle = nullptr;
+
     QGraphicsPathItem* pathItem = nullptr;
     QSharedPointer<QVector<QPointF>> pathPoints = nullptr;
 
-
+    //scene widgets
+    QGraphicsProxyWidget* towerMenu = addWidget(new TowerMenu());
 
 public:
     explicit MyScene(QObject* parent = nullptr, QPixmap* pixBackground = nullptr);
@@ -43,6 +52,12 @@ public:
     void createPathToScene();
     void createPathPointsToScene();
     virtual ~MyScene();
+    void mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent) override;
+    void showTowerMenu(QPointF clickedPos);
+    void hideTowerMenu();
+    public slots:
+    void killEnemy(Enemy* e);
+
 };
 
 
