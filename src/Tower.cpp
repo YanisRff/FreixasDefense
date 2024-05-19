@@ -10,6 +10,8 @@ Tower::Tower(int aR, int cR,int uR, int nT, float dmg,  QPixmap bI) : originalBa
     attackTimer->start(updateRate);
     rangeItem = new QGraphicsEllipseItem(-attackRadius/2 + this->pixmap().width()/2,  -attackRadius/2 +this->pixmap().height()/2, attackRadius, attackRadius, this);
     collideItem = new QGraphicsEllipseItem(-collideRadius/2 + this->pixmap().width()/2,  -collideRadius/2 +this->pixmap().height()/2, collideRadius, collideRadius, this);
+    connect(attackTimer, &QTimer::timeout, this, &Tower::checkEnnemiesInRange);
+
 }
 Tower::~Tower(){
     delete rangeItem;
