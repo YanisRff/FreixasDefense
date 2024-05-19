@@ -9,13 +9,17 @@
 #include<QPushButton>
 #include <QHBoxLayout>
 #include <QGroupBox>
-class TowerMenu : public QWidget {
+#include <QAbstractButton>
+#include "MyScene.h"
+class MyScene;
+
+class TowerMenu : public QWidget{
     Q_OBJECT
 private:
     QHBoxLayout *layout;
     QButtonGroup *buttonGroup;
 public:
-    TowerMenu();
+    explicit TowerMenu(const MyScene* relativeScene);
 
 };
 

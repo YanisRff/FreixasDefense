@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     mainView = new MyView();
     mainView->setScene(mainScene);
     mainView->setRenderHint(QPainter::Antialiasing);
-
     setCentralWidget(mainView);
     setWindowTitle("My main window");
     resize(pbWidth, pbHeight); //fit the window to the background image size
