@@ -12,7 +12,7 @@ class MyScene;
 
 class Enemy : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
-private:
+protected:
     QPixmap backgroundImage;
     float health = 80;
     float damages = 10;
@@ -21,7 +21,8 @@ private:
     int posInPath = 0;
 public:
     explicit Enemy(QPixmap bI);
-    Enemy(QPixmap bI, float hp, float dmg, float spd, int gD);
+    Enemy(QPixmap bI, MyScene* relativeScene , float hp, float dmg, float spd, int gD);
+    ~Enemy() override;
 
     void moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints);
     void incrementPos();
@@ -30,8 +31,12 @@ public:
     [[nodiscard]] MyScene* getScene() const;
     [[nodiscard]] float getHealth() const;
     [[nodiscard]] float getDamages() const;
-
+    [[nodiscard]] int getDroppedGold() const;
     void setHealth(float hp);
+
+public :signals:
+    void enemyKilled(Enemy* e);
+    void castleAttacked(const Enemy* e);
 
 };
 

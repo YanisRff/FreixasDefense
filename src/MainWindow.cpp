@@ -8,17 +8,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     int pbHeight = pixBackground->height();
 
     //Create the scene and draw the image
-    this->mainScene = new MyScene(this, pixBackground);
+    mainScene = new MyScene(this, pixBackground);
     mainScene->drawBackground(new QPainter(), QRectF());
     mainScene->setSceneRect(0, 0, pbWidth, pbHeight); //make the scene the exact same size as the window
 
     //Create the view to the scene
-    this->mainView = new MyView();
-    this->mainView->setScene(mainScene);
-
-    this->setCentralWidget(mainView);
-    this->setWindowTitle("My main window");
-    this->resize(pbWidth, pbHeight); //fit the window to the background image size
+    mainView = new MyView();
+    mainView->setScene(mainScene);
+    mainView->setRenderHint(QPainter::Antialiasing);
+    setCentralWidget(mainView);
+    setWindowTitle("My main window");
+    resize(pbWidth, pbHeight); //fit the window to the background image size
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     QAction* actionHelp = new QAction(tr("&About"), this);
