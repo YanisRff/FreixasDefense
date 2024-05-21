@@ -14,7 +14,7 @@ class Enemy;
 class MyScene;
 
 class Tower: public QObject, public QGraphicsPixmapItem {
-private:
+protected:
     QPixmap backgroundImage;
     QPixmap originalBackgroundImage;
     QTimer* attackTimer = nullptr;
@@ -29,7 +29,7 @@ private:
     float damages = 10;
 public:
     Tower(int aR, int cR,int uR, int nT, float dmg, QPixmap bI);
-    ~Tower();
+    ~Tower() override;
     void attackEnemy(Enemy* e);
     void checkEnnemiesInRange();
     bool containsTower(const Tower* t);

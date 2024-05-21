@@ -20,18 +20,10 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
     //create an enemy
     QPixmap enemy_bg("../assets/hqdefault.jpg");
-    Enemy* enemyOne = new Enemy(enemy_bg, 300, 100, 3, 1);
-    connect(enemyOne, &Enemy::enemyKilled, this, &MyScene::killEnemy); //TODO pass the connection to the constructor of enemy!!
-    connect(enemyOne, &Enemy::castleAttacked, castle, &Castle::isAttacked);
-    Enemy* enemyTwo = new Enemy(enemy_bg, 300, 10, 3, 1);
-    connect(enemyTwo, &Enemy::enemyKilled, this, &MyScene::killEnemy);
-    connect(enemyTwo, &Enemy::castleAttacked, castle, &Castle::isAttacked);
-    Enemy* enemyThree = new Enemy(enemy_bg, 300, 10, 2, 1);
-    connect(enemyThree, &Enemy::enemyKilled, this, &MyScene::killEnemy);
-    connect(enemyThree, &Enemy::castleAttacked, castle, &Castle::isAttacked);
-    Enemy* enemyFour = new Enemy(enemy_bg, 100, 10, 1, 1);
-    connect(enemyFour, &Enemy::enemyKilled, this, &MyScene::killEnemy);
-    connect(enemyFour, &Enemy::castleAttacked, castle, &Castle::isAttacked);
+    Enemy* enemyOne = new Enemy(enemy_bg, this, 300, 100, 3, 1);
+    Enemy* enemyTwo = new Enemy(enemy_bg, this, 300, 10, 3, 1);
+    Enemy* enemyThree = new Enemy(enemy_bg, this, 300, 10, 2, 1);
+    Enemy* enemyFour = new Enemy(enemy_bg, this, 100, 10, 1, 1);
 
     addEnemy(enemyOne);
     addEnemy(enemyTwo);
@@ -150,11 +142,12 @@ QVector<Enemy *> *MyScene::getEnnemies() const {
     return enemies;
 }
 
+
 //Slots
 void MyScene::killEnemy(Enemy *e) {
     e->setHealth(0);
     castle->setGold(castle->getGold() + e->getDroppedGold());
-    removeItem(e);
+    e->hide();
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
@@ -190,7 +183,7 @@ void MyScene::spawnTowerOnScene(QAbstractButton* button) {
         QPixmap tower_bg = QPixmap("../assets/tower_image.jpg");
         tempTower = new Tower(400, 600, 1000, 2, 10, tower_bg);
     }
-    //do other cases
+    //do other case
     tempTower->setPos(mousePos.rx()-tempTower->getBackgroundImage().width()/2, mousePos.ry()-tempTower->getBackgroundImage().height()/2);
     addItem(tempTower);
     towerMenu->close();
@@ -237,6 +230,10 @@ bool MyScene::doesTowerCollideWithAnother(Tower *t) {
 
 void MyScene::restoreOriginalBackground(Tower *t) {
     t->setPixmap(t->getOriginalBackgroundImage());
+}
+
+Castle* MyScene::getCastle() const {
+    return castle;
 }
 
 

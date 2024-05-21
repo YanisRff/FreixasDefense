@@ -22,6 +22,9 @@ Tower::~Tower(){
 
 MyScene* Tower::getScene() const {
     QGraphicsScene* tempScene =  this->scene();
+    if(tempScene == nullptr){
+        qDebug() << "Dynamic cast to MyScene failed in Enemy";
+    }
     return dynamic_cast<MyScene*>(tempScene);
 }
 

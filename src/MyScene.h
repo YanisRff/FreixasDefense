@@ -46,11 +46,12 @@ private:
 
 public:
     explicit MyScene(QObject* parent = nullptr, QPixmap* pixBackground = nullptr);
-    virtual ~MyScene();
+    ~MyScene() override;
     void drawBackground(QPainter* painter, const QRectF &rect) override;
 
     [[nodiscard]] QPixmap* getPixBackground() const;
     [[nodiscard]] QVector<Enemy*>* getEnnemies() const;
+    [[nodiscard]] Castle* getCastle() const;
     void setPixBackground(QPixmap* pB);
 
     void update();

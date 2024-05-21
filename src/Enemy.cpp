@@ -5,9 +5,17 @@
 #include "Enemy.h"
 #include <utility>
 
-Enemy::Enemy(QPixmap bI, float hp, float dmg, float spd, int gD) : backgroundImage(std::move(bI)), health(hp), damages(dmg), speed(spd), goldDropped(gD), posInPath(0) {
+Enemy::Enemy(QPixmap bI, MyScene* relativeScene ,float hp, float dmg, float spd, int gD) : backgroundImage(std::move(bI)), health(hp), damages(dmg), speed(spd), goldDropped(gD), posInPath(0) {
     setPixmap(backgroundImage);
+    connect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
+    connect(this, &Enemy::castleAttacked, relativeScene->getCastle(), &Castle::isAttacked);
 }
+Enemy::~Enemy(){
+    MyScene* relativeScene = this->getScene();
+    disconnect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
+    disconnect(this, &Enemy::castleAttacked, relativeScene->getCastle(), &Castle::isAttacked);
+}
+
 
 void Enemy::incrementPos() {
     posInPath += 1*speed;
@@ -30,6 +38,9 @@ Enemy::Enemy(QPixmap bI) : backgroundImage(std::move(bI)){
 ///All the getters
 MyScene *Enemy::getScene() const {
     QGraphicsScene* tempScene =  this->scene();
+    if(tempScene == nullptr){
+        qDebug() << "Dynamic cast to MyScene failed in Enemy";
+    }
     return dynamic_cast<MyScene*>(tempScene);
 }
 int Enemy::getPosInPath() const {
