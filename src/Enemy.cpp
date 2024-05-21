@@ -61,8 +61,36 @@ void Enemy::setHealth(float hp) {
     health = hp;
 }
 
+//Enemy
+Skeleton::Skeleton(QPixmap bI) : Enemy(std::move(bI)) {}
+Skeleton::Skeleton(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
 
+Zombies::Zombies(QPixmap bI) : Enemy(std::move(bI)) {}
+Zombies::Zombies(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
 
+Gobelin::Gobelin(QPixmap bI) : Enemy(std::move(bI)) {}
+Gobelin::Gobelin(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Gargoyles::Gargoyles(QPixmap bI) : Enemy(std::move(bI)) {}
+Gargoyles::Gargoyles(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Orcs::Orcs(QPixmap bI) : Enemy(std::move(bI)) {}
+Orcs::Orcs(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Necromancer::Necromancer(QPixmap bI) : Enemy(std::move(bI)) {}
+Necromancer::Necromancer(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Gouls::Gouls(QPixmap bI) : Enemy(std::move(bI)) {}
+Gouls::Gouls(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Mage::Mage(QPixmap bI) : Enemy(std::move(bI)) {}
+Mage::Mage(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Commander::Commander(QPixmap bI) : Enemy(std::move(bI)) {}
+Commander::Commander(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
+
+Freixas::Freixas(QPixmap bI) : Enemy(std::move(bI)) {}
+Freixas::Freixas(QPixmap bI, MyScene* relativeScene, float hp, float dmg, float spd, int gD) : Enemy(std::move(bI), relativeScene, hp, dmg, spd, gD) {}
 
 
 

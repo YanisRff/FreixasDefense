@@ -20,15 +20,39 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
     //create an enemy
     QPixmap enemy_bg("../assets/hqdefault.jpg");
-    Enemy* enemyOne = new Enemy(enemy_bg, this, 300, 100, 3, 1);
-    Enemy* enemyTwo = new Enemy(enemy_bg, this, 300, 10, 3, 1);
-    Enemy* enemyThree = new Enemy(enemy_bg, this, 300, 10, 2, 1);
-    Enemy* enemyFour = new Enemy(enemy_bg, this, 100, 10, 1, 1);
+    QPixmap skull_bg("../assets/Skeleton.png");
+    QPixmap zombie_bg("../assets/Zombie.png");
+    QPixmap gobelin_bg("../assets/gobelin.png");
+    QPixmap gargoyle_bg("../assets/gargoyle.png");
+    QPixmap orc_bg("../assets/orc.png");
+    QPixmap necromancer_bg("../assets/necromancer.png");
+    QPixmap gouls_bg("../assets/goule.png");
+    QPixmap mage_bg("../assets/mage.png");
+    QPixmap commander_bg("../assets/commander.png");
+    //QPixmap Freixas_bg("../assets/Freixas.png");
 
-    addEnemy(enemyOne);
-    addEnemy(enemyTwo);
-    addEnemy(enemyThree);
-    addEnemy(enemyFour);
+    Skeleton* skeleton = new Skeleton(skull_bg, this);
+    Zombies* zombies = new Zombies(zombie_bg, this);
+    Gobelin* gobelin = new Gobelin(gobelin_bg, this);
+    Gargoyles* gargoyle = new Gargoyles(gargoyle_bg, this);
+    Orcs* orc = new Orcs(orc_bg, this);
+    Necromancer* necromancer = new Necromancer(necromancer_bg, this);
+    Gouls* gouls = new Gouls(gouls_bg, this);
+    Mage* mage = new Mage(mage_bg, this);
+    Commander* commander = new Commander(commander_bg, this);
+    //Freixas* freixas = new Freixas(Freixas_bg, this);
+
+
+    addEnemy(skeleton);
+    addEnemy(zombies);
+    addEnemy(gobelin);
+    addEnemy(gargoyle);
+    addEnemy(orc);
+    addEnemy(necromancer);
+    addEnemy(gouls);
+    addEnemy(mage);
+    addEnemy(commander);
+    //addEnemy(freixas);
 
     QPixmap tower_bg("../assets/tower_image.jpg");
     //Tower* tower = new Tower(500, 300, 1000, 3, 20, tower_bg);
