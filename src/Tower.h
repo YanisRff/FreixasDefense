@@ -14,6 +14,7 @@ class Enemy;
 class MyScene;
 
 class Tower: public QObject, public QGraphicsPixmapItem {
+    Q_OBJECT
 protected:
     QPixmap backgroundImage;
     QPixmap originalBackgroundImage;
@@ -42,6 +43,8 @@ public:
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+
+
 };
 
 

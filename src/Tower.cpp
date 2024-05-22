@@ -30,6 +30,9 @@ MyScene* Tower::getScene() const {
 
 void Tower::attackEnemy(Enemy* e) {
     e->setHealth(e->getHealth() - damages);
+    if(e->getHealth() <= 0){
+        emit e->enemyKilled(e);
+    }
     std::cout << "New health of " << e << ": " << e->getHealth() << std::endl;
 }
 

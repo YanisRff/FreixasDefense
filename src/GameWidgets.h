@@ -10,6 +10,8 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QAbstractButton>
+#include <QProgressBar>
+#include <QGraphicsLinearLayout>
 #include "MyScene.h"
 class MyScene;
 
@@ -18,9 +20,22 @@ class TowerMenu : public QWidget{
 private:
     QHBoxLayout *layout;
     QButtonGroup *buttonGroup;
+    QVector<QPushButton*> buttonArray = QVector<QPushButton*>(10);
 public:
     explicit TowerMenu(const MyScene* relativeScene);
+    void addButtonToPanel(const QString& buttonName, const MyScene* relativeScene); //remember, buttonName = the name of the tower to construct !
 
+};
+
+class HealthBar : public QGraphicsWidget{
+private:
+    QProgressBar* progressBar;
+public:
+    explicit HealthBar(QGraphicsItem* parent = nullptr, float health = 100);
+    ~HealthBar();
+    void setBarColor();
+    [[nodiscard]] QProgressBar* getProgressBar();
+    void setValue(float hp);
 };
 
 #endif //PROJETTOWERDEFENSE_GAMEWIDGETS_H

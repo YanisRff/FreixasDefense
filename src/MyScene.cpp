@@ -13,6 +13,7 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     addItem(castle);
 
     towerMenu =  addWidget(new TowerMenu(this));
+    hideTowerMenu();
 
 
     createPathToScene();
@@ -156,6 +157,10 @@ void MyScene::addEnemy(Enemy *e) {
     enemies->append(e);
     addItem(e);
 }
+void MyScene::removeEnemy(Enemy *e) {
+    enemies->remove(enemies->indexOf(e));
+    //do not remove the item from the scene or the scene() method accessed in the destructor will return null
+}
 
 void MyScene::addTower(Tower *t) {
     towers->append(t);
@@ -172,6 +177,8 @@ void MyScene::killEnemy(Enemy *e) {
     e->setHealth(0);
     castle->setGold(castle->getGold() + e->getDroppedGold());
     e->hide();
+    removeEnemy(e);
+    delete e;
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
@@ -207,7 +214,9 @@ void MyScene::spawnTowerOnScene(QAbstractButton* button) {
         QPixmap tower_bg = QPixmap("../assets/tower_image.jpg");
         tempTower = new Tower(400, 600, 1000, 2, 10, tower_bg);
     }
-    //do other case
+    if(button->text() == "towerTwo"){
+        //do
+    }
     tempTower->setPos(mousePos.rx()-tempTower->getBackgroundImage().width()/2, mousePos.ry()-tempTower->getBackgroundImage().height()/2);
     addItem(tempTower);
     towerMenu->close();
