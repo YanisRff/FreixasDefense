@@ -26,10 +26,10 @@ protected:
     QGraphicsEllipseItem* collideItem = nullptr;
     QGraphicsEllipseItem* rangeItem = nullptr;
     bool isPlaceable = true;
-
-    float damages = 10;
+    int towerCost = 5;
+    int damages = 10;
 public:
-    Tower(int aR, int cR,int uR, int nT, float dmg, QPixmap bI);
+    Tower(int aR, int cR,int uR, int nT, int dmg, int tC, QPixmap bI);
     ~Tower() override;
     void attackEnemy(Enemy* e);
     void checkEnnemiesInRange();
@@ -38,6 +38,7 @@ public:
     [[nodiscard]] QPixmap getBackgroundImage() const;
     [[nodiscard]] QPixmap getOriginalBackgroundImage() const;
     [[nodiscard]] bool getIfTowerPlaceable() const;
+    [[nodiscard]] int getCost() const;
 
     void setPlaceableTower(bool b);
 

@@ -4,7 +4,7 @@
 
 #include "Tower.h"
 
-Tower::Tower(int aR, int cR,int uR, int nT, float dmg,  QPixmap bI) : originalBackgroundImage(bI), backgroundImage(bI), attackRadius(aR), collideRadius(cR),updateRate(uR), numberOfTargets(nT), damages(dmg) {
+Tower::Tower(int aR, int cR,int uR, int nT, int dmg, int tC,  QPixmap bI) : originalBackgroundImage(bI), backgroundImage(bI), attackRadius(aR), collideRadius(cR),updateRate(uR), numberOfTargets(nT), damages(dmg), towerCost(tC) {
     setPixmap(backgroundImage);
     attackTimer =  new QTimer();
     attackTimer->start(updateRate);
@@ -62,7 +62,6 @@ bool Tower::containsTower(const Tower *t) {
     };
     for(auto corner : corners){
         if(collideItem->contains(mapFromScene(corner))){
-            std::cout << "contains turret" << std::endl;
             return true;
         }
     }
@@ -91,6 +90,10 @@ void Tower::setPlaceableTower(bool b) {
 
 bool Tower::getIfTowerPlaceable() const {
     return isPlaceable;
+}
+
+int Tower::getCost() const {
+    return towerCost;
 }
 
 

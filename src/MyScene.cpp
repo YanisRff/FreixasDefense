@@ -9,7 +9,7 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
     enemies = new QVector<Enemy*>(100);
     towers = new QVector<Tower*>(5);
-    castle = new Castle(QPixmap("../assets/castle.jpg"), *pixBackground, 1000, 10);
+    castle = new Castle(QPixmap("../assets/castle.jpg"), *pixBackground, 1000, 10, this);
     addItem(castle);
 
     towerMenu =  addWidget(new TowerMenu(this));
@@ -212,7 +212,11 @@ void MyScene::spawnTowerOnScene(QAbstractButton* button) {
     Tower* tempTower = nullptr;
     if(button->text() == "towerOne"){
         QPixmap tower_bg = QPixmap("../assets/tower_image.jpg");
-        tempTower = new Tower(400, 600, 1000, 2, 10, tower_bg);
+        tempTower = new Tower(400, 600, 1000, 2, 10, 5, tower_bg);
+        /*if(tempTower->getCost() > castle->getGold()){ //not enough money!
+            return;
+        }
+        castle->setGold(castle->getGold() - tempTower->getCost());*/ //The early return seeems to broke the code
     }
     if(button->text() == "towerTwo"){
         //do

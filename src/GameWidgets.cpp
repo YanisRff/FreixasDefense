@@ -31,12 +31,15 @@ HealthBar::HealthBar(QGraphicsItem* parent, float health) : QGraphicsWidget(pare
     progressBar->setMinimum(0);
     progressBar->setValue(health);
     progressBar->setTextVisible(false);
-    progressBar->setGeometry(0, 0, 10, 5);
-    QGraphicsLinearLayout *layout = new QGraphicsLinearLayout();
+
+    layout = new QGraphicsLinearLayout();
     QGraphicsProxyWidget *proxy = new QGraphicsProxyWidget(this);
     proxy->setWidget(progressBar);
     layout->addItem(proxy);
     setLayout(layout);
+
+
+
 }
 HealthBar::~HealthBar(){
     delete progressBar;
@@ -66,6 +69,48 @@ void HealthBar::setValue(float hp) {
     setBarColor();
 }
 
+void HealthBar::addToLayout(QGraphicsProxyWidget *w) {
+    layout->addItem(w);
+}
+
+void HealthBar::setLabel(QLabel *l) {
+    if(label != nullptr){
+        delete label;
+    }
+    label = l;
+}
+
+GoldWidget::GoldWidget(const QString &imagePath, const QString &text, QGraphicsItem *parent)
+        : QGraphicsWidget(parent) {
+    // Créez un conteneur QWidget pour contenir les QLabels
+    containerWidget = new QWidget;
+
+    // Créez un QLabel pour l'image
+    imageLabel = new QLabel(containerWidget);
+    QPixmap pixmap(imagePath);
+    imageLabel->setPixmap(pixmap);
+
+    // Créez un QLabel pour le texte
+    textLabel = new QLabel(text, containerWidget);
+    textLabel->setAlignment(Qt::AlignCenter);
+
+    // Utilisez un QVBoxLayout pour organiser les labels verticalement
+    QHBoxLayout *layout = new QHBoxLayout(containerWidget);
+    layout->addWidget(imageLabel);
+    layout->addWidget(textLabel);
+    containerWidget->setLayout(layout);
+
+    // Créez un QGraphicsProxyWidget pour contenir le QWidget
+    proxyWidget = new QGraphicsProxyWidget(this);
+    proxyWidget->setWidget(containerWidget);
+
+    // Ajustez la taille de GoldWidget pour correspondre à celle du containerWidget
+    setPreferredSize(containerWidget->sizeHint());
+}
+
+void GoldWidget::setText(const QString &newText) {
+    textLabel->setText(newText);
+}
 
 
 //All the slots
