@@ -210,20 +210,43 @@ void MyScene::hideTowerMenu() {
 void MyScene::spawnTowerOnScene(QAbstractButton* button) {
     hasLeftClicked = false; //purge previous left click
     Tower* tempTower = nullptr;
-    if(button->text() == "towerOne"){
-        QPixmap tower_bg = QPixmap("../assets/tower_image.jpg");
-        tempTower = new Tower(400, 600, 1000, 2, 10, 5, tower_bg);
-        /*if(tempTower->getCost() > castle->getGold()){ //not enough money!
-            return;
-        }
-        castle->setGold(castle->getGold() - tempTower->getCost());*/ //The early return seeems to broke the code
-    }
-    if(button->text() == "towerTwo"){
-        //do
-    }
     if(button->text() == "Classic Tower Nv.1"){
         tempTower = new ClassicTower1();
     }
+    if(button->text() == "Classic Tower Nv.2"){
+        tempTower = new ClassicTower2();
+    }
+    if(button->text() == "Classic Tower Nv.3"){
+        tempTower = new ClassicTower3();
+    }
+    if(button->text() == "Tesla Tower Nv.1"){
+        tempTower = new TeslaTower1();
+    }
+    if(button->text() == "Tesla Tower Nv.2"){
+        tempTower = new TeslaTower2();
+    }
+    if(button->text() == "Tesla Tower Nv.3"){
+        tempTower = new TeslaTower3();
+    }
+    if(button->text() == "Canon Tower Nv.1"){
+        tempTower = new CanonTower1();
+    }
+    if(button->text() == "Canon Tower Nv.2"){
+        tempTower = new CanonTower2();
+    }
+    if(button->text() == "Canon Tower Nv.3"){
+        tempTower = new CanonTower3();
+    }
+    if(button->text() == "Crossbow Tower Nv.1"){
+        tempTower = new CrossbowTower1();
+    }
+    if(button->text() == "Crossbow Tower Nv.2"){
+        tempTower = new CrossbowTower2();
+    }
+    if(button->text() == "Crossbow Tower Nv.3"){
+        tempTower = new CrossbowTower3();
+    }
+
     tempTower->setPos(mousePos.rx()-tempTower->getBackgroundImage().width()/2, mousePos.ry()-tempTower->getBackgroundImage().height()/2);
     addItem(tempTower);
     towerMenu->close();
