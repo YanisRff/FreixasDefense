@@ -10,9 +10,18 @@ TowerMenu::TowerMenu(const MyScene* relativeScene) {
     buttonGroup = new QButtonGroup(this);
     setLayout(layout);
 
-    addButtonToPanel("towerOne", relativeScene);
-    addButtonToPanel("towerTwo", relativeScene);
     addButtonToPanel("Classic Tower Nv.1", relativeScene);
+    addButtonToPanel("Classic Tower Nv.2", relativeScene);
+    addButtonToPanel("Classic Tower Nv.3", relativeScene);
+    addButtonToPanel("Tesla Tower Nv.1", relativeScene);
+    addButtonToPanel("Tesla Tower Nv.2", relativeScene);
+    addButtonToPanel("Tesla Tower Nv.3", relativeScene);
+    addButtonToPanel("Canon Tower Nv.1", relativeScene);
+    addButtonToPanel("Canon Tower Nv.2", relativeScene);
+    addButtonToPanel("Canon Tower Nv.3", relativeScene);
+    addButtonToPanel("Crossbow Tower Nv.1", relativeScene);
+    addButtonToPanel("Crossbow Tower Nv.2", relativeScene);
+    addButtonToPanel("Crossbow Tower Nv.3", relativeScene);
 
 }
 
