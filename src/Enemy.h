@@ -57,49 +57,49 @@ public:
 class Gobelin : public Enemy{
 public:
     explicit Gobelin(QPixmap bI);
-    Gobelin(QPixmap bI, MyScene* relativeScene , float hp = 50, float dmg = 5, float spd = 3, int gD = 1);
+    Gobelin(QPixmap bI, MyScene* relativeScene , float hp = 75, float dmg = 5, float spd = 3, int gD = 1);
 };
 
 class Gargoyles : public Enemy{
 public:
     explicit Gargoyles(QPixmap bI);
-    Gargoyles(QPixmap bI, MyScene* relativeScene , float hp = 500, float dmg = 50, float spd = 1, int gD = 5);
+    Gargoyles(QPixmap bI, MyScene* relativeScene , float hp = 450, float dmg = 50, float spd = 1, int gD = 4);
 };
 
 class Orcs : public Enemy{
 public:
     explicit Orcs(QPixmap bI);
-    Orcs(QPixmap bI, MyScene* relativeScene , float hp = 300, float dmg = 30, float spd = 2, int gD = 3);
+    Orcs(QPixmap bI, MyScene* relativeScene , float hp = 250, float dmg = 30, float spd = 2, int gD = 4);
 };
 
 class Necromancer : public Enemy{
 public:
     explicit Necromancer(QPixmap bI);
-    Necromancer(QPixmap bI, MyScene* relativeScene , float hp = 200, float dmg = 10, float spd = 2, int gD = 2);
+    Necromancer(QPixmap bI, MyScene* relativeScene , float hp = 175, float dmg = 10, float spd = 2, int gD = 2);
 };
 
 class Gouls : public Enemy{
 public:
     explicit Gouls(QPixmap bI);
-    Gouls(QPixmap bI, MyScene* relativeScene , float hp = 10, float dmg = 5, float spd = 2, int gD = 0);
+    Gouls(QPixmap bI, MyScene* relativeScene , float hp = 75, float dmg = 5, float spd = 2, int gD = 0);
 };
 
 class Mage : public Enemy{
 public:
     explicit Mage(QPixmap bI);
-    Mage(QPixmap bI, MyScene* relativeScene , float hp = 100, float dmg = 20, float spd = 2, int gD = 2);
+    Mage(QPixmap bI, MyScene* relativeScene , float hp = 120, float dmg = 20, float spd = 2, int gD = 2);
 };
 
 class Commander : public Enemy{
 public:
     explicit Commander(QPixmap bI);
-    Commander(QPixmap bI, MyScene* relativeScene , float hp = 500, float dmg = 50, float spd = 2, int gD = 5);
+    Commander(QPixmap bI, MyScene* relativeScene , float hp = 450, float dmg = 50, float spd = 2, int gD = 5);
 };
 
 class Freixas : public Enemy{
 public:
     explicit Freixas(QPixmap bI);
-    Freixas(QPixmap bI, MyScene* relativeScene , float hp = 10000, float dmg = 500, float spd = 2, int gD = 100);
+    Freixas(QPixmap bI, MyScene* relativeScene , float hp = 8000, float dmg = 500, float spd = 1, int gD = 100);
 };
 
 #endif //PROJETTOWERDEFENSE_ENEMY_H
