@@ -6,7 +6,7 @@
 
 Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MyScene* relativeScene) : backgroundImage(bI), health(hp), gold(gD) {
     setPixmap(bI);
-    setPos(sceneBI.width() - bI.width()/2, sceneBI.height()/2 - bI.height()/2);
+    setPos(sceneBI.width() - bI.width()/2 - 15, sceneBI.height()/2 - bI.height()/2);
     healthBar = new HealthBar(this, hp);
     healthBar->setPos(sceneBI.width()/2 - 1000/2, 20);
     healthBar->getProgressBar()->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -20,7 +20,7 @@ Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MySc
     labelProxy->setWidget(pLabel);
     healthBar->addToLayout(labelProxy);
 
-    goldWidget = new GoldWidget("../assets/gold.jpg", "Or: " + QString::number(gD), this);
+    goldWidget = new GoldWidget("../assets/gold.png", "Or: " + QString::number(gD), this);
     
     
     relativeScene->addItem(healthBar);

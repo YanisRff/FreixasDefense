@@ -14,6 +14,7 @@ Enemy::Enemy(QPixmap bI, MyScene* relativeScene ,float hp, float dmg, float spd,
 }
 Enemy::~Enemy(){
     MyScene* relativeScene = this->getScene();
+    relativeScene->removeItem(this);
     relativeScene->removeItem(healthBar);
     delete healthBar;
     disconnect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
@@ -21,8 +22,11 @@ Enemy::~Enemy(){
 }
 
 
-void Enemy::incrementPos() {
-    posInPath += 1*speed;
+void Enemy::incrementPos(int step) {
+    if(step == 0){
+        posInPath += 1*speed;
+    }
+    else posInPath += step;
 }
 
 void Enemy::moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints) {
