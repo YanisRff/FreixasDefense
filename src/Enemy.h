@@ -8,13 +8,15 @@
 #include <QObject>
 #include <QSharedPointer>
 #include "MyScene.h"
+#include "GameWidgets.h"
 class MyScene;
-
+class HealthBar;
 class Enemy : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 protected:
     QPixmap backgroundImage;
     float health = 80;
+    HealthBar* healthBar = nullptr;
     float damages = 10;
     int speed = 1;
     int goldDropped = 10;

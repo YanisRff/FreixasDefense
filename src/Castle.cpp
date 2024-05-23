@@ -4,9 +4,27 @@
 
 #include "Castle.h"
 
-Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD) : backgroundImage(bI), health(hp), gold(gD) {
+Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MyScene* relativeScene) : backgroundImage(bI), health(hp), gold(gD) {
     setPixmap(bI);
     setPos(sceneBI.width() - bI.width()/2, sceneBI.height()/2 - bI.height()/2);
+    healthBar = new HealthBar(this, hp);
+    healthBar->setPos(sceneBI.width()/2 - 1000/2, 20);
+    healthBar->getProgressBar()->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    healthBar->setMinimumWidth(1000);
+    healthBar->setMinimumHeight(50);
+    healthBar->getProgressBar()->setTextVisible(true);
+
+    QLabel* pLabel = new QLabel("HP Château");
+    pLabel->setAlignment(Qt::AlignCenter);
+    QGraphicsProxyWidget *labelProxy = new QGraphicsProxyWidget(this);
+    labelProxy->setWidget(pLabel);
+    healthBar->addToLayout(labelProxy);
+
+    goldWidget = new GoldWidget("../assets/gold.jpg", "Or: " + QString::number(gD), this);
+    
+    
+    relativeScene->addItem(healthBar);
+    relativeScene->addItem(goldWidget);
 }
 
 void Castle::setHealth(float hp) {
@@ -14,6 +32,7 @@ void Castle::setHealth(float hp) {
 }
 void Castle::setGold(int g){
     gold = g;
+    goldWidget->setText("Or: " + QString::number(g));
 }
 float Castle::getHealth() const {
     return health;
@@ -24,5 +43,6 @@ int Castle::getGold() const {
 void Castle::isAttacked(const Enemy *e) {
     std::cout << "Caste attacked" << std::endl;
     health -= e->getDamages();
+    healthBar->setValue(health);
     std::cout << "Caste attacked, new health : " << health << std::endl;
 }

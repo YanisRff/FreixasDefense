@@ -57,6 +57,7 @@ public:
     void update();
     void moveEnemies();
     void addEnemy(Enemy* e);
+    void removeEnemy(Enemy* e);
     void addTower(Tower* t);
     void createPathToScene();
     void createPathPointsToScene();

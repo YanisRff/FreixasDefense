@@ -9,15 +9,19 @@
 #include <QWidget>
 #include "Enemy.h"
 #include "MyScene.h"
+#include "GameWidgets.h"
 class Enemy;
+class GoldWidget;
 
 class Castle : public QObject, public QGraphicsPixmapItem {
 private:
     QPixmap backgroundImage;
     int gold;
     float health;
+    HealthBar* healthBar = nullptr;
+    GoldWidget* goldWidget = nullptr;
 public:
-    Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD);
+    Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MyScene* relativeScene);
     void setGold(int g);
     void setHealth(float hp);
     [[nodiscard]] int getGold() const;
