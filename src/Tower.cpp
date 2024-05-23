@@ -97,4 +97,27 @@ int Tower::getCost() const {
 }
 
 
+ClassicTower1::ClassicTower1(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+ClassicTower2::ClassicTower2(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+ClassicTower3::ClassicTower3(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+TeslaTower1::TeslaTower1(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+TeslaTower2::TeslaTower2(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+TeslaTower3::TeslaTower3(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+CanonTower1::CanonTower1(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+CanonTower2::CanonTower2(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+CanonTower3::CanonTower3(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+CrossbowTower1::CrossbowTower1(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+CrossbowTower2::CrossbowTower2(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
+
+CrossbowTower3::CrossbowTower3(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}
 

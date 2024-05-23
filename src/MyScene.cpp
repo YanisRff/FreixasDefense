@@ -221,6 +221,9 @@ void MyScene::spawnTowerOnScene(QAbstractButton* button) {
     if(button->text() == "towerTwo"){
         //do
     }
+    if(button->text() == "Classic Tower Nv.1"){
+        tempTower = new ClassicTower1();
+    }
     tempTower->setPos(mousePos.rx()-tempTower->getBackgroundImage().width()/2, mousePos.ry()-tempTower->getBackgroundImage().height()/2);
     addItem(tempTower);
     towerMenu->close();

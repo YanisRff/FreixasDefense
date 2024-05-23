@@ -12,6 +12,7 @@ TowerMenu::TowerMenu(const MyScene* relativeScene) {
 
     addButtonToPanel("towerOne", relativeScene);
     addButtonToPanel("towerTwo", relativeScene);
+    addButtonToPanel("Classic Tower Nv.1", relativeScene);
 
 }
 
