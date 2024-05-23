@@ -13,6 +13,8 @@ Tower::Tower(int aR, int cR,int uR, int nT, int dmg, int tC,  QPixmap bI) : orig
     connect(attackTimer, &QTimer::timeout, this, &Tower::checkEnnemiesInRange);
 }
 Tower::~Tower(){
+    MyScene* relativeScene = this->getScene();
+    relativeScene->removeItem(this);
     delete rangeItem;
     delete collideItem;
     disconnect(attackTimer, &QTimer::timeout, this, &Tower::checkEnnemiesInRange);
@@ -36,6 +38,9 @@ void Tower::attackEnemy(Enemy* e) {
 }
 
 void Tower::checkEnnemiesInRange() {
+    if(!canAttack){
+        return;
+    }
     QVector<Enemy*>* ennemies = this->getScene()->getEnnemies();
     int targetedEnnemies = 0;
     for(auto& enemy: *ennemies){
@@ -86,6 +91,9 @@ void Tower::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {
 void Tower::setPlaceableTower(bool b) {
     isPlaceable = b;
 }
+void Tower::setAttackTower(bool b) {
+    canAttack = b;
+}
 
 bool Tower::getIfTowerPlaceable() const {
     return isPlaceable;
@@ -94,6 +102,7 @@ bool Tower::getIfTowerPlaceable() const {
 int Tower::getCost() const {
     return towerCost;
 }
+
 
 
 ClassicTower1::ClassicTower1(int aR, int cR, int uR, int nT, int dmg, int tC, QPixmap bI) : Tower(aR, cR, uR, nT, dmg, tC, bI) {}

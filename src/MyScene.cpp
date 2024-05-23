@@ -8,7 +8,7 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     timer->start(30); ///30 milliseconds
 
     enemies = new QVector<Enemy*>(100);
-    towers = new QVector<Tower*>(5);
+    towers = new QVector<Tower*>(20);
     castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 10, this);
     addItem(castle);
 
@@ -280,14 +280,22 @@ void MyScene::addEnemy(Enemy *e) {
     addItem(e);
 }
 void MyScene::removeEnemy(Enemy *e) {
-    //enemies->remove(enemies->indexOf(e));
-    enemies->data()[enemies->indexOf(e)] = nullptr;
+    enemies->remove(enemies->indexOf(e));
+    //enemies->data()[enemies->indexOf(e)] = nullptr;
     //do not remove the item from the scene or the scene() method accessed in the destructor will return null
 }
 
 void MyScene::addTower(Tower *t) {
-    towers->append(t);
-    addItem(t);
+    if(t->getCost() > castle->getGold()){
+        delete t;
+    }
+    else{
+        removeItem(t); //remove previous phantom of the tower
+        castle->setGold(castle->getGold() - t->getCost());
+        t->setAttackTower(true);
+        towers->append(t);
+        addItem(t);
+    }
 }
 
 QVector<Enemy *> *MyScene::getEnnemies() const {
@@ -379,7 +387,6 @@ void MyScene::spawnTowerOnScene(QAbstractButton* button) {
         if(hasLeftClicked && tempTower->getIfTowerPlaceable()){ //player wants to place the tower (and can)
             localTimer->stop();
             delete localTimer;
-            removeItem(tempTower);
             addTower(tempTower);
             return;
         }
@@ -419,6 +426,40 @@ void MyScene::restoreOriginalBackground(Tower *t) {
 
 Castle* MyScene::getCastle() const {
     return castle;
+}
+
+void MyScene::restartGame() {
+    std::cout << "USER RESTARTED" << std::endl;
+    timer->stop();
+    for(auto& enemy: *enemies){
+        if(enemy != nullptr){
+            delete enemy;
+            enemy = nullptr;
+        }
+    }
+    delete enemies;
+    enemies = nullptr;
+
+    for(auto& tower : *towers){
+        if(tower != nullptr){
+            delete tower;
+            tower = nullptr;
+        }
+    }
+    delete towers;
+    towers = nullptr;
+
+    waveNumber = 0;
+    numberBaseEnemy = 3;
+    numberIntermediateEnemy = 1;
+    numberDifficultEnemy = 0;
+    waveIncreaseRate.setInterval(30000);
+    delete castle;
+    castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 10, this);
+    addItem(castle);
+    enemies = new QVector<Enemy*>(100);
+    towers = new QVector<Tower*>(5);
+    timer->start();
 }
 
 

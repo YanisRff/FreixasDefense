@@ -10,7 +10,7 @@ TowerMenu::TowerMenu(const MyScene* relativeScene) {
     buttonGroup = new QButtonGroup(this);
     setLayout(layout);
 
-    addButtonToPanel("Classic Tower Nv.1", relativeScene);
+    addButtonToPanel("Classic Tower Nv.1", relativeScene); //TODO add the tower cost in the text button;
     addButtonToPanel("Classic Tower Nv.2", relativeScene);
     addButtonToPanel("Classic Tower Nv.3", relativeScene);
     addButtonToPanel("Tesla Tower Nv.1", relativeScene);

@@ -28,7 +28,9 @@ public:
     virtual ~MainWindow();
 
 public slots:
-    void slot_aboutMenu();
+    void slot_aboutRestart();
+    signals:
+    void userRestarted();
 };
 
 

@@ -82,6 +82,8 @@ public:
     public slots:
     void killEnemy(Enemy* e);
     void spawnTowerOnScene(QAbstractButton* button);
+    void restartGame();
+
 
 
 };
