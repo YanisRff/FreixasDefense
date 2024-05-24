@@ -10,6 +10,12 @@ Tower::Tower(int aR, int cR,int uR, int nT, int dmg, int tC,  QPixmap bI) : orig
     attackTimer->start(updateRate);
     rangeItem = new QGraphicsEllipseItem(-attackRadius/2 + this->pixmap().width()/2,  -attackRadius/2 +this->pixmap().height()/2, attackRadius, attackRadius, this);
     collideItem = new QGraphicsEllipseItem(-collideRadius/2 + this->pixmap().width()/2,  -collideRadius/2 +this->pixmap().height()/2, collideRadius, collideRadius, this);
+
+    // Définir la bordure rouge
+    QPen pen(Qt::red);
+    pen.setWidth(2);
+    collideItem->setPen(pen);
+
     connect(attackTimer, &QTimer::timeout, this, &Tower::checkEnnemiesInRange);
 }
 Tower::~Tower(){
@@ -70,6 +76,14 @@ bool Tower::containsTower(const Tower *t) {
         }
     }
     return false;
+}
+
+bool Tower::containsPath(QGraphicsPathItem* pathItem) {
+    return collideItem->collidesWithItem(pathItem);
+}
+
+void Tower::hideCollideRange() {
+    collideItem->hide();
 }
 
 QPixmap Tower::getBackgroundImage() const{

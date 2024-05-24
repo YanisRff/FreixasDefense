@@ -35,6 +35,8 @@ public:
     void attackEnemy(Enemy* e);
     void checkEnnemiesInRange();
     bool containsTower(const Tower* t);
+    bool containsPath(QGraphicsPathItem* pathItem);
+    void hideCollideRange();
     [[nodiscard]] MyScene* getScene() const;
     [[nodiscard]] QPixmap getBackgroundImage() const;
     [[nodiscard]] QPixmap getOriginalBackgroundImage() const;

@@ -9,7 +9,7 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
     enemies = new QVector<Enemy*>(100);
     towers = new QVector<Tower*>(20);
-    castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 10, this);
+    castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 30, this);
     addItem(castle);
 
     towerMenu =  addWidget(new TowerMenu(this));
@@ -62,125 +62,8 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     //addTower(tower);
     //tower->setPos(QPointF(300, 600));
 
-    waveNumber = 0;
-    numberBaseEnemy = 3;
-    numberIntermediateEnemy = 1;
-    numberDifficultEnemy = 0;
-
-    //interval between each wave incrementation
-    connect(&waveIncreaseRate, &QTimer::timeout, [this]() {
-        //Upgrade waves stats
-        this->waveNumber++;
-        numberBaseEnemy *= 0.2 + 1;
-        numberIntermediateEnemy *= 0.15 + 1;
-        numberDifficultEnemy = waveNumber;
-        //do other incrementations
-
-        connect(&spawnRate, &QTimer::timeout, [this](){
-            quint32 dice = QRandomGenerator::global()->bounded(20);
-            //BASE ENEMY
-            if(dice < 10){
-                for(int i=0; i < numberBaseEnemy; i++){
-                    quint32 internType = QRandomGenerator::global()->bounded(3);
-                    quint32 pos = QRandomGenerator::global()->bounded(30);
-                    switch (internType) {
-                        case 0: {
-                            QPixmap skull_bg("../assets/Skeleton.png");
-                            Skeleton *skeleton = new Skeleton(skull_bg, this);
-                            skeleton->incrementPos(pos);
-                            addEnemy(skeleton);
-                            break;
-                        }
-                        case 1: {
-                            QPixmap zombie_bg("../assets/Zombie.png");
-                            Zombies *zombies = new Zombies(zombie_bg, this);
-                            zombies->incrementPos(pos);
-                            addEnemy(zombies);
-                            break;
-                        }
-                        case 2: {
-                            QPixmap gobelin_bg("../assets/gobelin.png");
-                            Gobelin *gobelin = new Gobelin(gobelin_bg, this);
-                            gobelin->incrementPos(pos);
-                            addEnemy(gobelin);
-                            break;
-                        }
-                    }
-                }
-            }
-            //INTERMEDIATE ENEMY
-            if(dice < 16){
-                for(int i=0; i < numberIntermediateEnemy; i++){
-                    quint32 internType = QRandomGenerator::global()->bounded(4);
-                    quint32 pos = QRandomGenerator::global()->bounded(30);
-                    switch (internType) {
-                        case 0: {
-                            QPixmap gargoyle_bg("../assets/gargoyle.png");
-                            Gargoyles* gargoyle = new Gargoyles(gargoyle_bg, this);
-                            gargoyle->incrementPos(pos);
-                            addEnemy(gargoyle);
-                            break;
-                        }
-                        case 1: {
-                            QPixmap orc_bg("../assets/orc.png");
-                            Orcs* orc = new Orcs(orc_bg, this);
-                            orc->incrementPos(pos);
-                            addEnemy(orc);
-                            break;
-
-                        }
-                        case 2: {
-                            QPixmap necromancer_bg("../assets/necromancer.png");
-                            Necromancer* necromancer = new Necromancer(necromancer_bg, this);
-                            necromancer->incrementPos(pos);
-                            addEnemy(necromancer);
-                            break;
-                        }
-                        case 3: {
-                            QPixmap gouls_bg("../assets/goule.png");
-                            Gouls* gouls = new Gouls(gouls_bg, this);
-                            gouls->incrementPos(pos);
-                            addEnemy(gouls);
-                            break;
-                        }
-                    }
-                }
-            }
-            //DIFFICULT ENEMY
-            if(dice < 19){
-                for(int i=0; i < numberDifficultEnemy; i++){
-                    quint32 internType = QRandomGenerator::global()->bounded(2);
-                    quint32 pos = QRandomGenerator::global()->bounded(30);
-                    switch (internType) {
-                        case 0: {
-                            QPixmap mage_bg("../assets/mage.png");
-                            Mage* mage = new Mage(mage_bg, this);
-                            mage->incrementPos(pos);
-                            addEnemy(mage);
-                            break;
-                        }
-                        case 1: {
-                            QPixmap commander_bg("../assets/commander.png");
-                            Commander* commander = new Commander(commander_bg, this);
-                            commander->incrementPos(pos);
-                            addEnemy(commander);
-                            break;
-                        }
-                    }
-                }
-            }
-            //THE GREAT MIGHTY FREIXAS
-            if(dice == 19){
-                //Freixas* freixas = new Freixas(Freixas_bg, this);
-                //Freixas* freixas = new Freixas(Freixas_bg, this);
-                //addEnemy(freixas);
-                std::cout << "The great mighty Freixas have been invoked" << std::endl;
-            }
-        });
-        waveIncreaseRate.setInterval(30000 + waveNumber*15000); //increase by 15 seconds the time between each wave upgrade
-    });
-    waveIncreaseRate.start(10000); //every 30seconds
-    spawnRate.start(10000);
+    launchEnemyWaves();
+    elapsedTimer.start();
 
 }
 
@@ -293,6 +176,7 @@ void MyScene::addTower(Tower *t) {
         removeItem(t); //remove previous phantom of the tower
         castle->setGold(castle->getGold() - t->getCost());
         t->setAttackTower(true);
+        t->hideCollideRange();
         towers->append(t);
         addItem(t);
     }
@@ -390,6 +274,12 @@ void MyScene::spawnTowerOnScene(QAbstractButton* button) {
             addTower(tempTower);
             return;
         }
+        if(hasLeftClicked && !tempTower->getIfTowerPlaceable()){
+            localTimer->stop();
+            delete localTimer;
+            delete tempTower;
+            return;
+        }
         if(doesTowerCollideWithAnother(tempTower)){
             fadeToRedPixmap(tempTower);
             tempTower->setPlaceableTower(false);
@@ -454,12 +344,147 @@ void MyScene::restartGame() {
     numberIntermediateEnemy = 1;
     numberDifficultEnemy = 0;
     waveIncreaseRate.setInterval(30000);
-    delete castle;
-    castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 10, this);
-    addItem(castle);
+    castle->setGold(30);
+    castle->setHealth(1000);
     enemies = new QVector<Enemy*>(100);
     towers = new QVector<Tower*>(5);
     timer->start();
+}
+
+void MyScene::launchEnemyWaves() {
+
+    waveNumber = 0;
+    numberBaseEnemy = 3;
+    numberIntermediateEnemy = 1;
+    numberDifficultEnemy = 0;
+
+    //interval between each wave incrementation
+    connect(&waveIncreaseRate, &QTimer::timeout, [this]() {
+        //Upgrade waves stats
+        this->waveNumber++;
+        numberBaseEnemy *= 0.2 + 1;
+        numberIntermediateEnemy *= 0.15 + 1;
+        numberDifficultEnemy = waveNumber;
+        //do other incrementations
+
+        connect(&spawnRate, &QTimer::timeout, [this](){
+            quint32 dice = QRandomGenerator::global()->bounded(20);
+            //BASE ENEMY
+            if(dice < 10){
+                for(int i=0; i < numberBaseEnemy; i++){
+                    quint32 internType = QRandomGenerator::global()->bounded(3);
+                    quint32 pos = QRandomGenerator::global()->bounded(45);
+                    switch (internType) {
+                        case 0: {
+                            QPixmap skull_bg("../assets/Skeleton.png");
+                            Skeleton *skeleton = new Skeleton(skull_bg, this);
+                            skeleton->incrementPos(pos);
+                            addEnemy(skeleton);
+                            break;
+                        }
+                        case 1: {
+                            QPixmap zombie_bg("../assets/Zombie.png");
+                            Zombies *zombies = new Zombies(zombie_bg, this);
+                            zombies->incrementPos(pos);
+                            addEnemy(zombies);
+                            break;
+                        }
+                        case 2: {
+                            QPixmap gobelin_bg("../assets/gobelin.png");
+                            Gobelin *gobelin = new Gobelin(gobelin_bg, this);
+                            gobelin->incrementPos(pos);
+                            addEnemy(gobelin);
+                            break;
+                        }
+                    }
+                }
+            }
+            //INTERMEDIATE ENEMY
+            if(dice < 16){
+                for(int i=0; i < numberIntermediateEnemy; i++){
+                    quint32 internType = QRandomGenerator::global()->bounded(4);
+                    quint32 pos = QRandomGenerator::global()->bounded(45);
+                    switch (internType) {
+                        case 0: {
+                            QPixmap gargoyle_bg("../assets/gargoyle.png");
+                            Gargoyles* gargoyle = new Gargoyles(gargoyle_bg, this);
+                            gargoyle->incrementPos(pos);
+                            addEnemy(gargoyle);
+                            break;
+                        }
+                        case 1: {
+                            QPixmap orc_bg("../assets/orc.png");
+                            Orcs* orc = new Orcs(orc_bg, this);
+                            orc->incrementPos(pos);
+                            addEnemy(orc);
+                            break;
+
+                        }
+                        case 2: {
+                            QPixmap necromancer_bg("../assets/necromancer.png");
+                            Necromancer* necromancer = new Necromancer(necromancer_bg, this);
+                            necromancer->incrementPos(pos);
+                            addEnemy(necromancer);
+                            break;
+                        }
+                        case 3: {
+                            QPixmap gouls_bg("../assets/goule.png");
+                            Gouls* gouls = new Gouls(gouls_bg, this);
+                            gouls->incrementPos(pos);
+                            addEnemy(gouls);
+                            break;
+                        }
+                    }
+                }
+            }
+            //DIFFICULT ENEMY
+            if(dice < 19){
+                for(int i=0; i < numberDifficultEnemy; i++){
+                    quint32 internType = QRandomGenerator::global()->bounded(2);
+                    quint32 pos = QRandomGenerator::global()->bounded(45);
+                    switch (internType) {
+                        case 0: {
+                            QPixmap mage_bg("../assets/mage.png");
+                            Mage* mage = new Mage(mage_bg, this);
+                            mage->incrementPos(pos);
+                            addEnemy(mage);
+                            break;
+                        }
+                        case 1: {
+                            QPixmap commander_bg("../assets/commander.png");
+                            Commander* commander = new Commander(commander_bg, this);
+                            commander->incrementPos(pos);
+                            addEnemy(commander);
+                            break;
+                        }
+                    }
+                }
+            }
+            //THE GREAT MIGHTY FREIXAS
+            if(dice == 19){
+                //Freixas* freixas = new Freixas(Freixas_bg, this);
+                //Freixas* freixas = new Freixas(Freixas_bg, this);
+                //addEnemy(freixas);
+                std::cout << "The great mighty Freixas have been invoked" << std::endl;
+            }
+        });
+        waveIncreaseRate.setInterval(30000 + waveNumber*15000); //increase by 15 seconds the time between each wave upgrade
+    });
+    waveIncreaseRate.start(10000); //every 30seconds increase wave difficulty
+    spawnRate.start(10000); //spawn new wave every 10 seconds
+}
+
+void MyScene::pauseGame() {
+    timer->stop();
+    Popup* looseMess = new Popup("Vous avez perdu");
+    looseMess->setPos(this->width()/2, this->height()/2);
+    addItem(looseMess);
+    QTimer* t = new QTimer();
+    connect(t, &QTimer::timeout, [this, looseMess, t](){
+        delete looseMess;
+        delete t;
+    });
+    t->start(5000);
 }
 
 

@@ -28,6 +28,7 @@ class MyScene : public QGraphicsScene{
     Q_OBJECT
 private:
     QTimer* timer = nullptr;
+    QElapsedTimer elapsedTimer;
     QPixmap* pixBackground = nullptr;
 
     QVector<Enemy*> *enemies = nullptr;     //keep track of the ennemies on scene
@@ -77,12 +78,13 @@ public:
     static void fadeToRedPixmap(Tower* t);
     static void restoreOriginalBackground(Tower* t);
     void tryTowerPlacement(Tower* t, QPointF);
-
+    void launchEnemyWaves();
 
     public slots:
     void killEnemy(Enemy* e);
     void spawnTowerOnScene(QAbstractButton* button);
     void restartGame();
+    void pauseGame();
 
 
 

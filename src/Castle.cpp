@@ -24,7 +24,7 @@ Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MySc
 
     relativeScene->addItem(healthBar);
     relativeScene->addItem(goldWidget);
-    connect(this, &Castle::gameLost, relativeScene, &MyScene::restartGame);
+    connect(this, &Castle::castleKilled, relativeScene, &MyScene::pauseGame);
 }
 
 void Castle::setHealth(float hp) {
@@ -48,7 +48,7 @@ void Castle::isAttacked(const Enemy *e) {
     gold -= e->getDroppedGold();
     if(health <= 0){ //player lost
         healthBar->setValue(0);
-        emit gameLost();
+        emit castleKilled();
     }
     std::cout << "Caste attacked, new health : " << health << std::endl;
 }

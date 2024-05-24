@@ -58,4 +58,18 @@ private:
     QGraphicsProxyWidget *proxyWidget;
 };
 
+class Popup : public QGraphicsTextItem {
+public:
+    explicit Popup(const QString& text, QGraphicsItem* parent = nullptr)
+            : QGraphicsTextItem(text, parent) {
+        setDefaultTextColor(Qt::red);  // Couleur du texte, ajustez selon vos besoins
+        setFont(QFont("Arial", 16));   // Police et taille du texte, ajustez selon vos besoins
+
+        // Centrer le texte (facultatif, ajustez selon vos besoins)
+        setTextWidth(200);  // Largeur du texte
+        QGraphicsTextItem::adjustSize();
+        setPos(-boundingRect().width() / 2, -boundingRect().height() / 2);
+    }
+};
+
 #endif //PROJETTOWERDEFENSE_GAMEWIDGETS_H
