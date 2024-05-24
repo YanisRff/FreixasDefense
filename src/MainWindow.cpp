@@ -20,9 +20,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("My main window");
     resize(pbWidth, pbHeight); //fit the window to the background image size
 
-    helpMenu = menuBar()->addMenu(tr("&Help"));
-    QAction* actionHelp = new QAction(tr("&About"), this);
-    connect(actionHelp, SIGNAL(triggered()), this, SLOT(slot_aboutMenu()));
+    helpMenu = menuBar()->addMenu(tr("&Game"));
+    QAction* actionHelp = new QAction(tr("&Restart"), this);
+    connect(actionHelp, &QAction::triggered, this, &MainWindow::slot_aboutRestart);
+    connect(this, &MainWindow::userRestarted, mainScene, &MyScene::restartGame);
     helpMenu->addAction(actionHelp);
 
 }
@@ -31,9 +32,6 @@ MainWindow::~MainWindow(){
 
 }
 
-void MainWindow::slot_aboutMenu(){
-    QMessageBox msgBox;
-    msgBox.setText("A small QT/C++ projet...");
-    msgBox.setModal(true); // on souhaite que la fenetre soit modale i.e qu'on ne puisse plus cliquer ailleurs
-    msgBox.exec();
+void MainWindow::slot_aboutRestart() {
+    emit userRestarted();
 }

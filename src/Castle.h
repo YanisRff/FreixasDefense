@@ -14,6 +14,7 @@ class Enemy;
 class GoldWidget;
 
 class Castle : public QObject, public QGraphicsPixmapItem {
+Q_OBJECT
 private:
     QPixmap backgroundImage;
     int gold;
@@ -29,6 +30,8 @@ public:
 
     public slots:
     void isAttacked(const Enemy* e);
+    signals:
+    void gameLost();
 };
 
 #endif //PROJETTOWERDEFENSE_CASTLE_H

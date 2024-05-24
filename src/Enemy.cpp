@@ -9,24 +9,28 @@ Enemy::Enemy(QPixmap bI, MyScene* relativeScene ,float hp, float dmg, float spd,
     setPixmap(backgroundImage);
     healthBar = new HealthBar(this, hp);
     relativeScene->addItem(healthBar);
-    connect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
     connect(this, &Enemy::castleAttacked, relativeScene->getCastle(), &Castle::isAttacked);
+    connect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
 }
 Enemy::~Enemy(){
     MyScene* relativeScene = this->getScene();
+    relativeScene->removeItem(this);
     relativeScene->removeItem(healthBar);
     delete healthBar;
-    disconnect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
     disconnect(this, &Enemy::castleAttacked, relativeScene->getCastle(), &Castle::isAttacked);
+    disconnect(this, &Enemy::enemyKilled, relativeScene, &MyScene::killEnemy);
 }
 
 
-void Enemy::incrementPos() {
-    posInPath += 1*speed;
+void Enemy::incrementPos(int step) {
+    if(step == 0){
+        posInPath += 1*speed;
+    }
+    else posInPath += step;
 }
 
 void Enemy::moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints) {
-    if(this->getPosInPath() == pathPoints->size() - 1){ //enemy touched the base
+    if(this->getPosInPath() >= pathPoints->size()){ //enemy touched the base
         emit castleAttacked(this);
         emit enemyKilled(this);
         return;

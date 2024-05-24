@@ -27,7 +27,7 @@ public:
     ~Enemy() override;
 
     void moveAlongPath(const QSharedPointer<QVector<QPointF>>& pathPoints);
-    void incrementPos();
+    void incrementPos(int step = 0);
 
     [[nodiscard]] int getPosInPath() const;
     [[nodiscard]] MyScene* getScene() const;

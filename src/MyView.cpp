@@ -24,6 +24,7 @@ void MyView::keyPressEvent(QKeyEvent *event) {
             break;
         case Qt::Key_R:
             this->fitInView(sceneRect());
+
     }
 }
 

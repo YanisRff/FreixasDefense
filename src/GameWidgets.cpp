@@ -95,6 +95,11 @@ GoldWidget::GoldWidget(const QString &imagePath, const QString &text, QGraphicsI
     // Créez un conteneur QWidget pour contenir les QLabels
     containerWidget = new QWidget;
 
+    // Rendre le fond du conteneur transparent
+    containerWidget->setAttribute(Qt::WA_NoSystemBackground, true);
+    containerWidget->setAttribute(Qt::WA_TranslucentBackground, true);
+    containerWidget->setStyleSheet("background: transparent;");
+
     // Créez un QLabel pour l'image
     imageLabel = new QLabel(containerWidget);
     QPixmap pixmap(imagePath);

@@ -26,6 +26,7 @@ protected:
     QGraphicsEllipseItem* collideItem = nullptr;
     QGraphicsEllipseItem* rangeItem = nullptr;
     bool isPlaceable = true;
+    bool canAttack = false;
     int towerCost = 5;
     int damages = 10;
 public:
@@ -41,6 +42,7 @@ public:
     [[nodiscard]] int getCost() const;
 
     void setPlaceableTower(bool b);
+    void setAttackTower(bool b);
 
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;

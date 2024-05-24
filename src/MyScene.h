@@ -44,6 +44,13 @@ private:
     QPointF mousePos;   //Keep track of the mouse position
     bool hasLeftClicked = false; //Keep track of the last left mouse click
 
+    QTimer waveIncreaseRate;
+    QTimer spawnRate;
+    int waveNumber = 0;
+    int numberBaseEnemy = 3;
+    int numberIntermediateEnemy = 1;
+    int numberDifficultEnemy = 0;
+
 public:
     explicit MyScene(QObject* parent = nullptr, QPixmap* pixBackground = nullptr);
     ~MyScene() override;
@@ -75,6 +82,8 @@ public:
     public slots:
     void killEnemy(Enemy* e);
     void spawnTowerOnScene(QAbstractButton* button);
+    void restartGame();
+
 
 
 };

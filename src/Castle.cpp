@@ -6,7 +6,7 @@
 
 Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MyScene* relativeScene) : backgroundImage(bI), health(hp), gold(gD) {
     setPixmap(bI);
-    setPos(sceneBI.width() - bI.width()/2, sceneBI.height()/2 - bI.height()/2);
+    setPos(sceneBI.width() - bI.width()/2 - 15, sceneBI.height()/2 - bI.height()/2);
     healthBar = new HealthBar(this, hp);
     healthBar->setPos(sceneBI.width()/2 - 1000/2, 20);
     healthBar->getProgressBar()->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -20,15 +20,16 @@ Castle::Castle(const QPixmap& bI, const QPixmap& sceneBI, float hp, int gD, MySc
     labelProxy->setWidget(pLabel);
     healthBar->addToLayout(labelProxy);
 
-    goldWidget = new GoldWidget("../assets/gold.jpg", "Or: " + QString::number(gD), this);
-    
-    
+    goldWidget = new GoldWidget("../assets/gold.png", "Or: " + QString::number(gD), this);
+
     relativeScene->addItem(healthBar);
     relativeScene->addItem(goldWidget);
+    connect(this, &Castle::gameLost, relativeScene, &MyScene::restartGame);
 }
 
 void Castle::setHealth(float hp) {
     health = hp;
+    healthBar->setValue(health);
 }
 void Castle::setGold(int g){
     gold = g;
@@ -44,5 +45,10 @@ void Castle::isAttacked(const Enemy *e) {
     std::cout << "Caste attacked" << std::endl;
     health -= e->getDamages();
     healthBar->setValue(health);
+    gold -= e->getDroppedGold();
+    if(health <= 0){ //player lost
+        healthBar->setValue(0);
+        emit gameLost();
+    }
     std::cout << "Caste attacked, new health : " << health << std::endl;
 }
