@@ -46,15 +46,15 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
 
 
-    addEnemy(skeleton);
-    addEnemy(zombies);
-    addEnemy(gobelin);
-    addEnemy(gargoyle);
-    addEnemy(orc);
-    addEnemy(necromancer);
-    addEnemy(gouls);
-    addEnemy(mage);
-    addEnemy(commander);
+    //addEnemy(skeleton);
+    //addEnemy(zombies);
+    //addEnemy(gobelin);
+    //addEnemy(gargoyle);
+    //addEnemy(orc);
+    //addEnemy(necromancer);
+    //addEnemy(gouls);
+    //addEnemy(mage);
+    //addEnemy(commander);
     //addEnemy(freixas);
 
     QPixmap tower_bg("../assets/tower_image.jpg");
@@ -174,12 +174,12 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
                 //Freixas* freixas = new Freixas(Freixas_bg, this);
                 //Freixas* freixas = new Freixas(Freixas_bg, this);
                 //addEnemy(freixas);
-                std::cout << "The great mighty Freixas have been invoked" << std::endl;
+                //std::cout << "The great mighty Freixas have been invoked" << std::endl;
             }
         });
         waveIncreaseRate.setInterval(30000 + waveNumber*15000); //increase by 15 seconds the time between each wave upgrade
     });
-    waveIncreaseRate.start(10000); //every 30seconds
+    waveIncreaseRate.start(10000);
     spawnRate.start(10000);
 
 }
@@ -298,6 +298,12 @@ void MyScene::addTower(Tower *t) {
     }
 }
 
+void MyScene::removeTower(Tower *t) {
+    towers->remove(towers->indexOf(t));
+    //towers->data()[towers->indexOf(t)] = nullptr;
+    //do not remove the item from the scene or the scene() method accessed in the destructor will return null
+}
+
 QVector<Enemy *> *MyScene::getEnnemies() const {
     return enemies;
 }
@@ -327,6 +333,14 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     mousePos = event->scenePos();
     //std::cout << "New mouse pos " << mousePos.rx() << ", " << mousePos.ry() << std::endl;
+}
+
+QVector<Tower *> *MyScene::getTowers() const {
+    return towers;
+}
+
+QPointF MyScene::getMousePos() const {
+    return mousePos;
 }
 
 void MyScene::showTowerMenu(QPointF clickedPos) {

@@ -14,6 +14,8 @@
 #include <QGraphicsProxyWidget>
 #include <QColor>
 #include <QThread>
+#include <QKeyEvent>
+#include <qguiapplication.h>
 #include "Enemy.h"
 #include "Tower.h"  
 #include "Castle.h"
@@ -26,12 +28,14 @@ class Castle;
 
 class MyScene : public QGraphicsScene{
     Q_OBJECT
+protected:
+    QVector<Tower*> *towers = nullptr;  //keep track of the tower on scene
+    QPointF mousePos;   //Keep track of the mouse position
 private:
     QTimer* timer = nullptr;
     QPixmap* pixBackground = nullptr;
 
     QVector<Enemy*> *enemies = nullptr;     //keep track of the ennemies on scene
-    QVector<Tower*> *towers = nullptr;  //keep track of the tower on scene
     Castle* castle = nullptr;
 
     QGraphicsPathItem* pathItem = nullptr;  //graphic item showed in scene to represent the ennemies path
@@ -41,7 +45,6 @@ private:
     QGraphicsProxyWidget* towerMenu = nullptr;
 
 
-    QPointF mousePos;   //Keep track of the mouse position
     bool hasLeftClicked = false; //Keep track of the last left mouse click
 
     QTimer waveIncreaseRate;
@@ -66,6 +69,7 @@ public:
     void addEnemy(Enemy* e);
     void removeEnemy(Enemy* e);
     void addTower(Tower* t);
+    void removeTower(Tower* t);
     void createPathToScene();
     void createPathPointsToScene();
     void mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent) override;
@@ -73,6 +77,8 @@ public:
     void showTowerMenu(QPointF clickedPos);
     void hideTowerMenu();
     bool doesTowerCollideWithAnother(Tower *t);
+    QVector<Tower*> *getTowers() const;
+    QPointF getMousePos() const;
 
     static void fadeToRedPixmap(Tower* t);
     static void restoreOriginalBackground(Tower* t);

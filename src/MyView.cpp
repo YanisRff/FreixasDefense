@@ -1,7 +1,7 @@
 //
 // Created by nirin on 5/8/2024.
 //
-
+//
 #include "MyView.h"
 
 void MyView::resizeEvent(QResizeEvent *event) {
@@ -23,7 +23,18 @@ void MyView::keyPressEvent(QKeyEvent *event) {
             verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
             break;
         case Qt::Key_R:
-            this->fitInView(sceneRect());
+            this->fitInView(QGraphicsView::sceneRect()); //error here
+            break;
+        case Qt::Key_S:
+            printf("Key S pressed\n");
+            for(auto& tower : *towers){
+                if(tower->contains(mousePos)){
+                    printf("Tower at %f, %f\n", tower->pos().rx(), tower->pos().ry());
+                    removeTower(tower);
+                    delete tower;
+                    return;
+                }
+            }
 
     }
 }
