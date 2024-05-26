@@ -23,6 +23,7 @@ TowerMenu::TowerMenu(const MyScene* relativeScene) {
     addButtonToPanel("Crossbow Tower Nv.2", relativeScene);
     addButtonToPanel("Crossbow Tower Nv.3", relativeScene);
 
+    connect(buttonGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), relativeScene, &MyScene::spawnTowerOnScene); //connect the buttonClicked event to the function that place a tower
 }
 
 void TowerMenu::addButtonToPanel(const QString& buttonName, const MyScene* relativeScene) {
@@ -32,7 +33,6 @@ void TowerMenu::addButtonToPanel(const QString& buttonName, const MyScene* relat
     buttonGroup->addButton(tower);
     buttonArray.append(tower);
     layout->addWidget(tower);
-    connect(buttonGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonPressed), relativeScene, &MyScene::spawnTowerOnScene); //connect the buttonClicked event to the function that place a tower
 }
 
 HealthBar::HealthBar(QGraphicsItem* parent, float health) : QGraphicsWidget(parent) {

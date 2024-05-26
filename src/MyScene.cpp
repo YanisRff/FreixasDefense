@@ -278,6 +278,7 @@ void MyScene::hideTowerMenu() {
 }
 
 void MyScene::spawnTowerOnScene(QAbstractButton* button) {
+    std::cout << "Spawning turret" << std::endl;
     hasLeftClicked = false; //purge previous left click
     Tower* tempTower = nullptr;
     if(button->text() == "Classic Tower Nv.1"){
