@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     mainView->setScene(mainScene);
     mainView->setRenderHint(QPainter::Antialiasing);
     setCentralWidget(mainView);
-    setWindowTitle("My main window");
+    setWindowTitle("TowerDefense");
     resize(pbWidth, pbHeight); //fit the window to the background image size
 
     helpMenu = menuBar()->addMenu(tr("&Game"));
@@ -35,3 +35,4 @@ MainWindow::~MainWindow(){
 void MainWindow::slot_aboutRestart() {
     emit userRestarted();
 }
+

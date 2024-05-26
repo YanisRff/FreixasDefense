@@ -127,6 +127,5 @@ void GoldWidget::setText(const QString &newText) {
     textLabel->setText(newText);
 }
 
-
 //All the slots
 

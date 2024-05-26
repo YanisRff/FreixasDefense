@@ -3,7 +3,6 @@
 //
 
 #include "Enemy.h"
-#include <utility>
 
 Enemy::Enemy(QPixmap bI, MyScene* relativeScene ,float hp, float dmg, float spd, int gD) : backgroundImage(std::move(bI)), health(hp), damages(dmg), speed(spd), goldDropped(gD), posInPath(0) {
     setPixmap(backgroundImage);

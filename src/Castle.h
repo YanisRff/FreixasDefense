@@ -31,7 +31,7 @@ public:
     public slots:
     void isAttacked(const Enemy* e);
     signals:
-    void gameLost();
+    void castleKilled();
 };
 
 #endif //PROJETTOWERDEFENSE_CASTLE_H
