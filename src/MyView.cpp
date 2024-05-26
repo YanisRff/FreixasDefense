@@ -27,12 +27,20 @@ void MyView::keyPressEvent(QKeyEvent *event) {
             break;
         case Qt::Key_S:
             MyScene* relativeScene = dynamic_cast<MyScene*>(scene());
+            for (auto& tower : *relativeScene->towers){
+                if(tower != nullptr){
+                    printf("Tower at %f, %f\n", tower->pos().rx(), tower->pos().ry());
+                }
+            }
             printf("Key S pressed\n");
             printf("Mouse Pos : %f, %f\n", relativeScene->mousePos.rx(), relativeScene->mousePos.ry());
             for(auto& tower : *relativeScene->towers){
                 if(tower != nullptr && (tower->pos().rx()-100 <= relativeScene->mousePos.rx() <= tower->pos().rx() + 100) && (tower->pos().ry() - 100 <= relativeScene->mousePos.ry() <= tower->pos().ry() + 100)){
                     printf("Tower at %f, %f\n", tower->pos().rx(), tower->pos().ry());
-                    relativeScene->removeTower(tower);
+                    int gold = tower->getCost() - 1 ;
+                    delete tower;
+                    tower = nullptr;
+                    relativeScene->getCastle()->setGold(relativeScene->getCastle()->getGold() + gold);
                     break;
                 }
             }
