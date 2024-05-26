@@ -17,7 +17,7 @@ Les vagues augmentent en difficulté toutes les trente secondes. Plus d'ennemis 
 - __Double Clique Gauche__ pour acheter une tour et __Clique Gauche__ pour la placer en jeu.
 - __La molette__ et __les flèches directionnelles__ vous permettront de zoomer et de vous déplacer dans la scène de jeu.
 - __R__ pour remettre la vue à sa position d'origine.
-- Appuyez __5x__ sur __S__ pour vendre une tour.
+- Appuyez sur __S__ pour vendre les tours dans leur ordre de placement!
 - Cliquez sur le menu "Game" puis "Restart" pour redémarrer la partie en cas d'échec.
 
  ## II. Compilation
