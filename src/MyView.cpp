@@ -27,7 +27,7 @@ void MyView::keyPressEvent(QKeyEvent *event) {
             break;
         case Qt::Key_S:
             printf("Key S pressed\n");
-            for(auto& tower : *towers){
+            for(auto& tower : MyScene->getTower()){
                 if(tower->contains(mousePos)){
                     printf("Tower at %f, %f\n", tower->pos().rx(), tower->pos().ry());
                     removeTower(tower);

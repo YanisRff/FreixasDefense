@@ -13,7 +13,7 @@
 #include <QScrollBar>
 
 
-class MyView : public QGraphicsView, public MyScene{
+class MyView : public QGraphicsView{
     Q_OBJECT
 private:
     bool blockResizeEvent = false;

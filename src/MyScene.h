@@ -28,9 +28,6 @@ class Castle;
 
 class MyScene : public QGraphicsScene{
     Q_OBJECT
-protected:
-    QVector<Tower*> *towers = nullptr;  //keep track of the tower on scene
-    QPointF mousePos;   //Keep track of the mouse position
 private:
     QTimer* timer = nullptr;
     QPixmap* pixBackground = nullptr;
@@ -55,6 +52,8 @@ private:
     int numberDifficultEnemy = 0;
 
 public:
+    QVector<Tower*> *towers = nullptr;  //keep track of the tower on scene
+    QPointF mousePos;   //Keep track of the mouse position
     explicit MyScene(QObject* parent = nullptr, QPixmap* pixBackground = nullptr);
     ~MyScene() override;
     void drawBackground(QPainter* painter, const QRectF &rect) override;
