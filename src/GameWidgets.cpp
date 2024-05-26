@@ -10,19 +10,20 @@ TowerMenu::TowerMenu(const MyScene* relativeScene) {
     buttonGroup = new QButtonGroup(this);
     setLayout(layout);
 
-    addButtonToPanel("Classic Tower Nv.1", 0, 0, relativeScene);
-    addButtonToPanel("Classic Tower Nv.2", 0, 1, relativeScene);
-    addButtonToPanel("Classic Tower Nv.3", 0, 2, relativeScene);
-    addButtonToPanel("Tesla Tower Nv.1", 1, 0, relativeScene);
-    addButtonToPanel("Tesla Tower Nv.2", 1, 1, relativeScene);
-    addButtonToPanel("Tesla Tower Nv.3", 1, 2, relativeScene);
-    addButtonToPanel("Canon Tower Nv.1", 2, 0, relativeScene);
-    addButtonToPanel("Canon Tower Nv.2", 2, 1, relativeScene);
-    addButtonToPanel("Canon Tower Nv.3", 2, 2, relativeScene);
-    addButtonToPanel("Crossbow Tower Nv.1", 3, 0, relativeScene);
-    addButtonToPanel("Crossbow Tower Nv.2", 3, 1, relativeScene);
-    addButtonToPanel("Crossbow Tower Nv.3", 3, 2, relativeScene);
+    addButtonToPanel("Classic Tower Nv.1 10g", 0, 0, relativeScene);
+    addButtonToPanel("Classic Tower Nv.2 15g", 0, 1, relativeScene);
+    addButtonToPanel("Classic Tower Nv.3 25g", 0, 2, relativeScene);
+    addButtonToPanel("Tesla Tower Nv.1 15g", 1, 0, relativeScene);
+    addButtonToPanel("Tesla Tower Nv.2 25g", 1, 1, relativeScene);
+    addButtonToPanel("Tesla Tower Nv.3 55g", 1, 2, relativeScene);
+    addButtonToPanel("Canon Tower Nv.1 15g", 2, 0, relativeScene);
+    addButtonToPanel("Canon Tower Nv.2 20g", 2, 1, relativeScene);
+    addButtonToPanel("Canon Tower Nv.3 30g", 2, 2, relativeScene);
+    addButtonToPanel("Crossbow Tower Nv.1 10g", 3, 0, relativeScene);
+    addButtonToPanel("Crossbow Tower Nv.2 20g", 3, 1, relativeScene);
+    addButtonToPanel("Crossbow Tower Nv.3 40g", 3, 2, relativeScene);
 
+    connect(buttonGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), relativeScene, &MyScene::spawnTowerOnScene); //connect the buttonClicked event to the function that place a tower
 }
 
 void TowerMenu::addButtonToPanel(const QString& buttonName, int row, int column , const MyScene* relativeScene) {
@@ -32,8 +33,6 @@ void TowerMenu::addButtonToPanel(const QString& buttonName, int row, int column 
     buttonGroup->addButton(tower);
     buttonArray.append(tower);
     layout->addWidget(tower, row, column);
-    connect(buttonGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonPressed), relativeScene,
-            &MyScene::spawnTowerOnScene); //connect the buttonClicked event to the function that place a tower}
 }
 
 HealthBar::HealthBar(QGraphicsItem* parent, float health) : QGraphicsWidget(parent) {

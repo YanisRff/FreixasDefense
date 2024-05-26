@@ -22,14 +22,8 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     //create an enemy
     QPixmap skull_bg("../assets/Skeleton.png");
     Skeleton* skeleton = new Skeleton(skull_bg, this);
-
-
     addEnemy(skeleton);
 
-
-    QPixmap Freixas_bg("../assets/master_freixas.png");
-    Freixas* freixas = new Freixas(Freixas_bg, this);
-    addEnemy(freixas);
     
     launchEnemyWaves();
     elapsedTimer.start();
@@ -253,40 +247,40 @@ void MyScene::hideTowerMenu() {
 void MyScene::spawnTowerOnScene(QAbstractButton* button) {
     hasLeftClicked = false; //purge previous left click
     Tower* tempTower = nullptr;
-    if(button->text() == "Classic Tower Nv.1"){
+    if(button->text() == "Classic Tower Nv.1 10g"){
         tempTower = new ClassicTower1();
     }
-    if(button->text() == "Classic Tower Nv.2"){
+    if(button->text() == "Classic Tower Nv.2 15g"){
         tempTower = new ClassicTower2();
     }
-    if(button->text() == "Classic Tower Nv.3"){
+    if(button->text() == "Classic Tower Nv.3 25g"){
         tempTower = new ClassicTower3();
     }
-    if(button->text() == "Tesla Tower Nv.1"){
+    if(button->text() == "Tesla Tower Nv.1 15g"){
         tempTower = new TeslaTower1();
     }
-    if(button->text() == "Tesla Tower Nv.2"){
+    if(button->text() == "Tesla Tower Nv.2 25g"){
         tempTower = new TeslaTower2();
     }
-    if(button->text() == "Tesla Tower Nv.3"){
+    if(button->text() == "Tesla Tower Nv.3 55g"){
         tempTower = new TeslaTower3();
     }
-    if(button->text() == "Canon Tower Nv.1"){
+    if(button->text() == "Canon Tower Nv.1 15g"){
         tempTower = new CanonTower1();
     }
-    if(button->text() == "Canon Tower Nv.2"){
+    if(button->text() == "Canon Tower Nv.2 20g"){
         tempTower = new CanonTower2();
     }
-    if(button->text() == "Canon Tower Nv.3"){
+    if(button->text() == "Canon Tower Nv.3 30g"){
         tempTower = new CanonTower3();
     }
-    if(button->text() == "Crossbow Tower Nv.1"){
+    if(button->text() == "Crossbow Tower Nv.1 10g"){
         tempTower = new CrossbowTower1();
     }
-    if(button->text() == "Crossbow Tower Nv.2"){
+    if(button->text() == "Crossbow Tower Nv.2 20g"){
         tempTower = new CrossbowTower2();
     }
-    if(button->text() == "Crossbow Tower Nv.3"){
+    if(button->text() == "Crossbow Tower Nv.3 40g"){
         tempTower = new CrossbowTower3();
     }
 
