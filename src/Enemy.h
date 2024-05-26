@@ -101,7 +101,7 @@ public:
 class Freixas : public Enemy{
 public:
     explicit Freixas(QPixmap bI);
-    Freixas(QPixmap bI, MyScene* relativeScene , float hp = 8000, float dmg = 500, float spd = 1, int gD = 100);
+    Freixas(QPixmap bI, MyScene* relativeScene , float hp = 3000, float dmg = 500, float spd = 1, int gD = 120);
 };
 
 #endif //PROJETTOWERDEFENSE_ENEMY_H
