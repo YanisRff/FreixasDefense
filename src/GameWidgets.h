@@ -8,6 +8,7 @@
 #include <QButtonGroup>
 #include<QPushButton>
 #include <QHBoxLayout>
+#include <QGridLayout>
 #include <QGroupBox>
 #include <QAbstractButton>
 #include <QProgressBar>
@@ -20,12 +21,12 @@ class MyScene;
 class TowerMenu : public QWidget{
     Q_OBJECT
 private:
-    QHBoxLayout *layout;
+    QGridLayout *layout;
     QButtonGroup *buttonGroup;
     QVector<QPushButton*> buttonArray = QVector<QPushButton*>(10);
 public:
     explicit TowerMenu(const MyScene* relativeScene);
-    void addButtonToPanel(const QString& buttonName, const MyScene* relativeScene); //remember, buttonName = the name of the tower to construct !
+    void addButtonToPanel(const QString& buttonName, int row, int column, const MyScene* relativeScene); //remember, buttonName = the name of the tower to construct !
 
 };
 

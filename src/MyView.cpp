@@ -1,7 +1,7 @@
 //
 // Created by nirin on 5/8/2024.
 //
-
+//
 #include "MyView.h"
 
 void MyView::resizeEvent(QResizeEvent *event) {
@@ -23,7 +23,23 @@ void MyView::keyPressEvent(QKeyEvent *event) {
             verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
             break;
         case Qt::Key_R:
-            this->fitInView(sceneRect());
+            this->fitInView(QGraphicsView::sceneRect()); //error here
+            break;
+        case Qt::Key_S:
+            MyScene* relativeScene = dynamic_cast<MyScene*>(scene());
+            for (auto& tower : *relativeScene->towers){
+                if(tower != nullptr){}
+            }
+            for(auto& tower : *relativeScene->towers){
+                if(tower != nullptr && (tower->pos().rx()-100 <= relativeScene->mousePos.rx() <= tower->pos().rx() + 100) && (tower->pos().ry() - 100 <= relativeScene->mousePos.ry() <= tower->pos().ry() + 100)){
+                    int gold = tower->getCost() - 1 ;
+                    delete tower;
+                    tower = nullptr;
+                    relativeScene->getCastle()->setGold(relativeScene->getCastle()->getGold() + gold);
+                    break;
+                }
+            }
+            break;
 
     }
 }

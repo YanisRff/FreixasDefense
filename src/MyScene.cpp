@@ -23,7 +23,9 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     QPixmap skull_bg("../assets/Skeleton.png");
     Skeleton* skeleton = new Skeleton(skull_bg, this);
 
+
     addEnemy(skeleton);
+
 
     QPixmap Freixas_bg("../assets/master_freixas.png");
     Freixas* freixas = new Freixas(Freixas_bg, this);
@@ -148,6 +150,10 @@ void MyScene::addTower(Tower *t) {
         towers->append(t);
         addItem(t);
     }
+}
+
+void MyScene::removeTower(Tower *t) {
+    delete t;
 }
 
 QVector<Enemy *> *MyScene::getEnnemies() const {
