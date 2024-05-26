@@ -40,7 +40,6 @@ void Tower::attackEnemy(Enemy* e) {
     if(e->getHealth() <= 0){
         emit e->enemyKilled(e);
     }
-    std::cout << "New health of " << e << ": " << e->getHealth() << std::endl;
 }
 
 void Tower::checkEnnemiesInRange() {

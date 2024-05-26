@@ -30,8 +30,7 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
     QPixmap Freixas_bg("../assets/master_freixas.png");
     Freixas* freixas = new Freixas(Freixas_bg, this);
     addEnemy(freixas);
-
-
+    
     launchEnemyWaves();
     elapsedTimer.start();
 
