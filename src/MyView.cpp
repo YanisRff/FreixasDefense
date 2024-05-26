@@ -26,15 +26,17 @@ void MyView::keyPressEvent(QKeyEvent *event) {
             this->fitInView(QGraphicsView::sceneRect()); //error here
             break;
         case Qt::Key_S:
+            MyScene* relativeScene = dynamic_cast<MyScene*>(scene());
             printf("Key S pressed\n");
-            for(auto& tower : MyScene->getTower()){
-                if(tower->contains(mousePos)){
+            printf("Mouse Pos : %f, %f\n", relativeScene->mousePos.rx(), relativeScene->mousePos.ry());
+            for(auto& tower : *relativeScene->towers){
+                if(tower != nullptr && (tower->pos().rx()-100 <= relativeScene->mousePos.rx() <= tower->pos().rx() + 100) && (tower->pos().ry() - 100 <= relativeScene->mousePos.ry() <= tower->pos().ry() + 100)){
                     printf("Tower at %f, %f\n", tower->pos().rx(), tower->pos().ry());
-                    removeTower(tower);
-                    delete tower;
-                    return;
+                    relativeScene->removeTower(tower);
+                    break;
                 }
             }
+            break;
 
     }
 }

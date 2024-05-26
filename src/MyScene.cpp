@@ -299,9 +299,7 @@ void MyScene::addTower(Tower *t) {
 }
 
 void MyScene::removeTower(Tower *t) {
-    towers->remove(towers->indexOf(t));
-    //towers->data()[towers->indexOf(t)] = nullptr;
-    //do not remove the item from the scene or the scene() method accessed in the destructor will return null
+    delete t;
 }
 
 QVector<Enemy *> *MyScene::getEnnemies() const {
@@ -333,14 +331,6 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     mousePos = event->scenePos();
     //std::cout << "New mouse pos " << mousePos.rx() << ", " << mousePos.ry() << std::endl;
-}
-
-QVector<Tower *> *MyScene::getTowers() const {
-    return towers;
-}
-
-QPointF MyScene::getMousePos() const {
-    return mousePos;
 }
 
 void MyScene::showTowerMenu(QPointF clickedPos) {

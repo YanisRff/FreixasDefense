@@ -76,8 +76,6 @@ public:
     void showTowerMenu(QPointF clickedPos);
     void hideTowerMenu();
     bool doesTowerCollideWithAnother(Tower *t);
-    QVector<Tower*> *getTowers() const;
-    QPointF getMousePos() const;
 
     static void fadeToRedPixmap(Tower* t);
     static void restoreOriginalBackground(Tower* t);

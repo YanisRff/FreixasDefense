@@ -20,11 +20,11 @@ private:
     int dx = 20;
     int dy = 10;
     qreal scale_factor_in = 1.15;
+    QPointF mousePos;
 protected:
     virtual void resizeEvent(QResizeEvent* event);
     void keyPressEvent(QKeyEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
-
 };
 
 #endif //PROJETTOWERDEFENSE_MYVIEW_H
