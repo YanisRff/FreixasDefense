@@ -9,7 +9,7 @@ MyScene::MyScene(QObject* parent, QPixmap* pixBackground) : QGraphicsScene(paren
 
     enemies = new QVector<Enemy*>(100);
     towers = new QVector<Tower*>(20);
-    castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 30, this);
+    castle = new Castle(QPixmap("../assets/castle.png"), *pixBackground, 1000, 50, this);
     addItem(castle);
 
     towerMenu =  addWidget(new TowerMenu(this));
@@ -367,7 +367,7 @@ void MyScene::restartGame() {
     numberIntermediateEnemy = 1;
     numberDifficultEnemy = 0;
     waveIncreaseRate.setInterval(30000);
-    castle->setGold(30);
+    castle->setGold(50);
     castle->setHealth(1000);
     enemies = new QVector<Enemy*>(100);
     towers = new QVector<Tower*>(5);
@@ -494,7 +494,7 @@ void MyScene::launchEnemyWaves() {
         waveIncreaseRate.setInterval(30000 + waveNumber*15000); //increase by 15 seconds the time between each wave upgrade
     });
     waveIncreaseRate.start(30000); //every 30seconds increase wave difficulty
-    spawnRate.start(10000); //spawn new wave every 10 seconds
+    spawnRate.start(15000); //spawn new wave every 15 seconds
 }
 
 void MyScene::pauseGame() {

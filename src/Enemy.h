@@ -65,7 +65,7 @@ public:
 class Gargoyles : public Enemy{
 public:
     explicit Gargoyles(QPixmap bI);
-    Gargoyles(QPixmap bI, MyScene* relativeScene , float hp = 450, float dmg = 50, float spd = 1, int gD = 4);
+    Gargoyles(QPixmap bI, MyScene* relativeScene , float hp = 300, float dmg = 50, float spd = 1, int gD = 4);
 };
 
 class Orcs : public Enemy{
@@ -95,13 +95,13 @@ public:
 class Commander : public Enemy{
 public:
     explicit Commander(QPixmap bI);
-    Commander(QPixmap bI, MyScene* relativeScene , float hp = 450, float dmg = 50, float spd = 2, int gD = 5);
+    Commander(QPixmap bI, MyScene* relativeScene , float hp = 350, float dmg = 50, float spd = 2, int gD = 5);
 };
 
 class Freixas : public Enemy{
 public:
     explicit Freixas(QPixmap bI);
-    Freixas(QPixmap bI, MyScene* relativeScene , float hp = 1500, float dmg = 250, float spd = 1, int gD = 120);
+    Freixas(QPixmap bI, MyScene* relativeScene , float hp = 1000, float dmg = 250, float spd = 1, int gD = 120);
 };
 
 #endif //PROJETTOWERDEFENSE_ENEMY_H

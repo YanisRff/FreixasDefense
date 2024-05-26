@@ -24,7 +24,8 @@ Les vagues augmentent en difficulté toutes les trente secondes. Plus d'ennemis 
 Afin de compiler le code source et de pouvoir lancer le jeu, voici les étapes à suivre.
 
 ### Dépendance QT
-Vous aurez besoin de plusieurs paquets provenant de QT afin de lancer le jeu:
+Veillez à utiliser la même version de QT que celle renseignée dans le fichier CMakeList.txt. Nous avons utilisé QT5 par défaut.
+Vous pouvez au besoin modifier de vous-même la version de QT du projet pour correspondre avec la vôtre.
 
 ### Avec CMake
 CMake est un outil très pratique qui permet de lier automatiquement les fichiers et dépendances entre eux. C'est la méthode que nous recommandons pour ce projet.

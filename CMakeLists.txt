@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(ProjetTowerDefense)
+project(FreixasDefense)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_AUTOMOC ON)
@@ -13,7 +13,7 @@ find_package(Qt5 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(ProjetTowerDefense main.cpp
+add_executable(FreixasDefense main.cpp
         src/MainWindow.cpp
         src/MyScene.cpp
         src/MyView.cpp
@@ -25,7 +25,7 @@ add_executable(ProjetTowerDefense main.cpp
         src/Castle.cpp src/Castle.h
         src/GameWidgets.cpp
         src/GameWidgets.h)
-target_link_libraries(ProjetTowerDefense
+target_link_libraries(FreixasDefense
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets

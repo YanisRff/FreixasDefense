@@ -42,7 +42,6 @@ int Castle::getGold() const {
     return gold;
 }
 void Castle::isAttacked(const Enemy *e) {
-    std::cout << "Caste attacked" << std::endl;
     health -= e->getDamages();
     healthBar->setValue(health);
     gold -= e->getDroppedGold();
@@ -50,5 +49,4 @@ void Castle::isAttacked(const Enemy *e) {
         healthBar->setValue(0);
         emit castleKilled();
     }
-    std::cout << "Caste attacked, new health : " << health << std::endl;
 }
