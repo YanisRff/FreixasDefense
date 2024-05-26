@@ -7,6 +7,8 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QSharedPointer>
+#include <utility>
+#include <QDebug>
 #include "MyScene.h"
 #include "GameWidgets.h"
 class MyScene;

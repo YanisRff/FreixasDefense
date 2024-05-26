@@ -7,7 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 
-find_package(Qt6 COMPONENTS
+find_package(Qt5 COMPONENTS
         Core
         Gui
         Widgets
@@ -26,8 +26,8 @@ add_executable(ProjetTowerDefense main.cpp
         src/GameWidgets.cpp
         src/GameWidgets.h)
 target_link_libraries(ProjetTowerDefense
-        Qt6::Core
-        Qt6::Gui
-        Qt6::Widgets
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
 )
 

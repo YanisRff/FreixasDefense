@@ -32,7 +32,7 @@ void TowerMenu::addButtonToPanel(const QString& buttonName, const MyScene* relat
     buttonGroup->addButton(tower);
     buttonArray.append(tower);
     layout->addWidget(tower);
-    connect(buttonGroup, &QButtonGroup::buttonPressed, relativeScene, &MyScene::spawnTowerOnScene); //connect the buttonClicked event to the function that place a tower
+    connect(buttonGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonPressed), relativeScene, &MyScene::spawnTowerOnScene); //connect the buttonClicked event to the function that place a tower
 }
 
 HealthBar::HealthBar(QGraphicsItem* parent, float health) : QGraphicsWidget(parent) {

@@ -13,6 +13,7 @@
 #include <QProgressBar>
 #include <QGraphicsLinearLayout>
 #include <QLabel>
+#include <QConstOverload>
 #include "MyScene.h"
 class MyScene;
 

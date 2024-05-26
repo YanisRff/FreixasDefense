@@ -206,6 +206,62 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
             hasLeftClicked = true;
             break;
             //close tower menu selector
+        case Qt::NoButton:
+            break;
+        case Qt::MiddleButton:
+            break;
+        case Qt::BackButton:
+            break;
+        case Qt::ForwardButton:
+            break;
+        case Qt::TaskButton:
+            break;
+        case Qt::ExtraButton4:
+            break;
+        case Qt::ExtraButton5:
+            break;
+        case Qt::ExtraButton6:
+            break;
+        case Qt::ExtraButton7:
+            break;
+        case Qt::ExtraButton8:
+            break;
+        case Qt::ExtraButton9:
+            break;
+        case Qt::ExtraButton10:
+            break;
+        case Qt::ExtraButton11:
+            break;
+        case Qt::ExtraButton12:
+            break;
+        case Qt::ExtraButton13:
+            break;
+        case Qt::ExtraButton14:
+            break;
+        case Qt::ExtraButton15:
+            break;
+        case Qt::ExtraButton16:
+            break;
+        case Qt::ExtraButton17:
+            break;
+        case Qt::ExtraButton18:
+            break;
+        case Qt::ExtraButton19:
+            break;
+        case Qt::ExtraButton20:
+            break;
+        case Qt::ExtraButton21:
+            break;
+        case Qt::ExtraButton22:
+            break;
+        case Qt::ExtraButton23:
+            break;
+        case Qt::ExtraButton24:
+            break;
+        case Qt::AllButtons:
+            break;
+        case Qt::MouseButtonMask:
+            break;
     }
 }
 void MyScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
