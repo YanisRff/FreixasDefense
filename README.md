@@ -44,7 +44,7 @@ CMake est un outil très pratique qui permet de lier automatiquement les fichier
 6. Une fois réalisé, appelez Make sur le répertoire courant
 ```make```
 7. Vous pouvez désormais lancer le jeu:
-```./ProjetTowerDefense```
+```./FreixasDefense```
 
 
 
